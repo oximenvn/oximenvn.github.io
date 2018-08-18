@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Oximen&#39;s blog">
+    <title>Học deep learning phần 1 - Oximen&#39;s blog</title>
+    <meta name="author" content="Nguyen Tien Thanh">
+    
+        <meta name="keywords" content="javascript,hexo,">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Từ hôm nay, mình bắt đầu học về deep learning theo một giáo trình cụ thể.Hồi học đại học, mình có học về machine learning. Những khái  niệm cơ bản như học có giám sát, học không giám sát, phân lớp, … cũng đã biết qua. Sau 2 năm ra trường, chắc quên khá nhiều rồi. Cách mạng 4.0 sẽ là cách mạng của IoT, AI, rô-bốt, xe tự lái, công nghệ sinh học, nano. Giờ 25 tuổi, có nghĩa là cả đời sẽ chứng kiến cuộc cách mạng này và thành quả của nó. Không nhảy vào thì chỉ có con đường tụt hậu. Vì vậy, mình đăng kí khóa học Deeplearning A-Z của Udemy.Trong quá trình học, mình sẽ ghi chép các nội dung chính, quan trọng ở trên blog này. Vừa để ghi nhớ, vừa để dễ tra cứu sau này.\n Bác nào thấy có sai sót gì thì thông báo cho mình ngay để mình update lại kiến thức nhé. Sau ngay ban đầu mà lại ở kiến thức cơ bản thì nguy hiểm lắm. \nHôm nay học bài 1: Deep learning là gì. Cài python, lấy data của môn học, các tài liệu khác.Deep learning là gì.Deep learning là 1 mảng nhỏ hơn trong machine learning. Trong machine learning có mạng nơ-ron và nhiều loại khác nữa. Mạng nơ-ron gồm 3 lớp: lớp đầu vào, lớp ẩn, lớp đầu ra. Mạng nơ-ron có nhiều lớp ẩn gọi là Deep learning. \nHình ảnh trên lấy từ nguồn này. \nCài pythonDùng python 3.6, tải từ trang https://www.anaconda.com/download/#linuxBản phân phối python này có sắn IDE, thư viện các kiểu.\nDữ liệu dùng khi họcTải từ trang nàyhttps://www.superdatascience.com/deep-learning/\nXong bài 1. Easy!\n","dateCreated":"2018-08-18T10:45:30+09:00","dateModified":"2018-08-18T10:53:39+09:00","datePublished":"2018-08-18T10:45:30+09:00","description":"","headline":"Học deep learning phần 1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/","keywords":"deep learning, python"}</script>
+    <meta name="description" content="Từ hôm nay, mình bắt đầu học về deep learning theo một giáo trình cụ thể.Hồi học đại học, mình có học về machine learning. Những khái  niệm cơ bản như học có giám sát, học không giám sát, phân lớp, …">
+<meta name="keywords" content="deep learning,python">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Học deep learning phần 1">
+<meta property="og:url" content="http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/index.html">
+<meta property="og:site_name" content="Oximen&#39;s blog">
+<meta property="og:description" content="Từ hôm nay, mình bắt đầu học về deep learning theo một giáo trình cụ thể.Hồi học đại học, mình có học về machine learning. Những khái  niệm cơ bản như học có giám sát, học không giám sát, phân lớp, …">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*ZX05x1xYgaVoa4Vn2kKS9g.png">
+<meta property="og:updated_time" content="2018-08-18T01:53:39.839Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Học deep learning phần 1">
+<meta name="twitter:description" content="Từ hôm nay, mình bắt đầu học về deep learning theo một giáo trình cụ thể.Hồi học đại học, mình có học về machine learning. Những khái  niệm cơ bản như học có giám sát, học không giám sát, phân lớp, …">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/800/1*ZX05x1xYgaVoa4Vn2kKS9g.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/6302012"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Oximen&#39;s blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture fa fa-question"
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Nguyen Tien Thanh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>(o.O)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/oximenvn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/OximenVN" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Học deep learning phần 1
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-08-18T10:45:30+09:00">
+	
+		    Aug 18, 2018
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>Từ hôm nay, mình bắt đầu học về deep learning theo một giáo trình cụ thể.<br>Hồi học đại học, mình có học về machine learning. Những khái  niệm cơ bản như học có giám sát, học không giám sát, phân lớp, … cũng đã biết qua. Sau 2 năm ra trường, chắc quên khá nhiều rồi. Cách mạng 4.0 sẽ là cách mạng của IoT, AI, rô-bốt, xe tự lái, công nghệ sinh học, nano. Giờ 25 tuổi, có nghĩa là cả đời sẽ chứng kiến cuộc cách mạng này và thành quả của nó. Không nhảy vào thì chỉ có con đường tụt hậu. Vì vậy, mình đăng kí khóa học <a href="https://www.udemy.com/share/10004kAEcbeVxTR34=/" target="_blank" rel="noopener">Deeplearning A-Z của Udemy</a>.<br>Trong quá trình học, mình sẽ ghi chép các nội dung chính, quan trọng ở trên blog này. Vừa để ghi nhớ, vừa để dễ tra cứu sau này.</p>
+<p><strong><em> Bác nào thấy có sai sót gì thì thông báo cho mình ngay để mình update lại kiến thức nhé. Sau ngay ban đầu mà lại ở kiến thức cơ bản thì nguy hiểm lắm. </em></strong></p>
+<h2 id="Hom-nay-hoc-bai-1-Deep-learning-la-gi-Cai-python-lay-data-cua-mon-hoc-cac-tai-lieu-khac"><a href="#Hom-nay-hoc-bai-1-Deep-learning-la-gi-Cai-python-lay-data-cua-mon-hoc-cac-tai-lieu-khac" class="headerlink" title="Hôm nay học bài 1: Deep learning là gì. Cài python, lấy data của môn học, các tài liệu khác."></a>Hôm nay học bài 1: Deep learning là gì. Cài python, lấy data của môn học, các tài liệu khác.</h2><h3 id="Deep-learning-la-gi"><a href="#Deep-learning-la-gi" class="headerlink" title="Deep learning là gì."></a>Deep learning là gì.</h3><p>Deep learning là 1 mảng nhỏ hơn trong machine learning. Trong machine learning có mạng nơ-ron và nhiều loại khác nữa. Mạng nơ-ron gồm 3 lớp: lớp đầu vào, lớp ẩn, lớp đầu ra. Mạng nơ-ron có nhiều lớp ẩn gọi là Deep learning. </p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ZX05x1xYgaVoa4Vn2kKS9g.png" alt="Deep learning vs Machine learning"><br>Hình ảnh trên lấy từ <a href="https://medium.com/swlh/ill-tell-you-why-deep-learning-is-so-popular-and-in-demand-5aca72628780" target="_blank" rel="noopener">nguồn này</a>. </p>
+<h3 id="Cai-python"><a href="#Cai-python" class="headerlink" title="Cài python"></a>Cài python</h3><p>Dùng python 3.6, tải từ trang <a href="https://www.anaconda.com/download/#linux" target="_blank" rel="noopener">https://www.anaconda.com/download/#linux</a><br>Bản phân phối python này có sắn IDE, thư viện các kiểu.</p>
+<h3 id="Du-lieu-dung-khi-hoc"><a href="#Du-lieu-dung-khi-hoc" class="headerlink" title="Dữ liệu dùng khi học"></a>Dữ liệu dùng khi học</h3><p>Tải từ trang này<br><a href="https://www.superdatascience.com/deep-learning/" target="_blank" rel="noopener">https://www.superdatascience.com/deep-learning/</a></p>
+<p>Xong bài 1. <strong><em>Easy!</em></strong></p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/deep-learning/">deep learning</a> <a class="tag tag--primary tag--small t-link" href="/tags/python/">python</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/08/11/a-binary-gap/" data-tooltip="Find a binary gap" aria-label="NEXT: Find a binary gap">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Nguyen Tien Thanh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/08/11/a-binary-gap/" data-tooltip="Find a binary gap" aria-label="NEXT: Find a binary gap">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Nguyen Tien Thanh</h4>
+        
+            <div id="about-card-bio"><p>(o.O)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Spamer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Kanagawa,Japan
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+    </body>
+</html>
