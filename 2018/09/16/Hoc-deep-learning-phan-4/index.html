@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Oximen&#39;s blog">
+    <title>Học deep learning phần 4. - Oximen&#39;s blog</title>
+    <meta name="author" content="Nguyen Tien Thanh">
+    
+        <meta name="keywords" content="javascript,hexo,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra. Mạng sẽ trả ra nhãn của vật trong hình. \n\n\nMột bức ảnh được truyền vào như thế nào?Một bức ảnh gồm rất nhiều điểm ảnh, mỗi điểm sẽ được chuyển thành 1 giá trị nguyên từ 0 đến 255, rồi truyền vào mạng. \nLàm cách nào để chuyển 1 điểm ảnh thành số nguyên?Nếu là ảnh đen trắng thì dễ rồi, càng đen thì số càng to, trắng là 0, đến đen nhất là 255. Còn ảnh màu thì như thế nào? Ảnh màu lưu dạng GRB(Green-Red-Blue: Xanh-Đỏ -Lam) nên sẽ có 3 số nguyên cho 3 màu Xanh, Đỏ, Lam.Vậy là 1 hình ảnh sẽ có dạng như thế này.\n\nGiờ nhìn vào cái CNN. CNN là gì?\nMạng nơ-ron tích chập (Convolutional Neural Network)Mạng nơ-ron tích chập trông như thế này.Input là cái ảnh đã được nói phía trên. Các phần sau của input sẽ được nói ở dưới đây.CNN gồm 4 bước xử lí:\n\nBước 1: Tích chập (Convolution)\nBước 1b: Lớp ReLU \nBước 2: Gộp vào (Pooling)\nBước 3: Làm phẳng (Flattening)\nBước 4: Mạng nơ-ron đầy đủ (Full Connection) ở phần 3Bước 1: Tích chập (CONVOLUTION)Tích chập của hàm f(t) và g(t) được định nghĩa như sau:Đã thấy nó đơn giản chưa (\\^o^). Nếu thấy nó đơn giản rồi thì bạn đếch về thế giới này. Hãy tắt ngay trình duyệt và trở về thế giới của bạn. Nếu f(t) là việc bạn nhấn chân ga tăng tốc, g(t) là việc thằng bên cạnh đạp phanh giảm tốc thì tích chập (f*g)(t) là quảng đường của vận tốc do (bạn đạp ga tăng tốc nhân với thằng bên cạnh nhả phanh (ngược lại với đạp phanh)).Nhưng cái ảnh của mình lại là các điểm rời rạc. Tích chập của hàm rời rạc lại dễ hiểu hiểu nhiều.(Vẫn đếch hiểu gì.) Mình tìm được 1 trang giải thích khá dễ hiểu. Đầu tiên, ở cái 1D filter, chọn cái shift g(t)=1 tại t=-1,g(t)=0 tại t!=-1  , sẽ thấy kết quả của tích chập là dịch hàm f(t) 1 khoảng nhất định. Tùy thuộc vào hàm g(t) sẽ cho kết quả khác nhau, dịch trái phải, làm phẳng, … Với 1 cái ảnh 2 chiều dọc ngang như phần 2D. Cách tính tích chập như thế này.Nhìn hình đã thấy nó đơn giản chưa (\\^_^).Với hình mặt cười ban đầu, và 1 cái filter ngẫu nhiên, kết quả là ntn.\n\nBước 1b: Lớp ReLUMỗi giá trị của Feature Map sẽ đi qua nơ-ron reLU để loại bỏ phần giá trị âm, làm mất tính tuyến tính giữa các điểm trong Map.Map trước lớp RuLU trông như thế này. Có 1 khoảng chuyển giữa vùng sáng và vùng tối.\nSau khi qua lớp ReLU, khoảng chuyển này đã bị loại bỏ.\nBước 2: Gộp vào (Pooling)Làm cách nào để CNN nhận rdiện đc đối tượng ở nhiều khía cạnh khác nhau?Trong thực tế còn phức tạp hơn nhiều.Việc gộp lại sẽ giúp giảm quyết vấn đề này.Có 3 loại gộp:\n\nGộp mean (Mean pooling)\nGộp max (Max pooling)\nGộp tổng (Sum pooling)\n\nChúng ta tập trung vào gộp max. Chúng ta gộp theo 4 ô 2x2 từ trên trái dịch dần sang phải, xuống dưới. Mỗi lần dịch 2 ô. Trong mỗi nhóm 4 ô, lấy giá trị lớn nhất làm kết quả của gộp.\nBước 1,1b và 2 thường được lặp lại nhiều lần tuỳ theo thiết kế CNN của tác giả.\nBước 3: Làm phẳng (Flattening)Đơn giản là duỗi thẳng cái hình chữ nhật ra.\nVì có nhiều map nên sẽ như thế này\nBước 4: Mạng nơ-ron đầy đủ (Full Connection)Nếu để phân loại chó và mèo thì nó sẽ trông như thế này:\nTổng kết lại như thế này\n","dateCreated":"2018-09-16T17:15:33+09:00","dateModified":"2018-09-16T17:22:31+09:00","datePublished":"2018-09-16T17:15:33+09:00","description":"Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra. Mạng sẽ trả ra nhãn của vật trong hình. \n","headline":"Học deep learning phần 4.","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/","keywords":"deep learning, python, neuron network"}</script>
+    <meta name="description" content="Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra.">
+<meta name="keywords" content="deep learning,python,neuron network">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Học deep learning phần 4.">
+<meta property="og:url" content="http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/index.html">
+<meta property="og:site_name" content="Oximen&#39;s blog">
+<meta property="og:description" content="Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_Img4.png">
+<meta property="og:image" content="http://nemixo.xyz/images/ANN/p31.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_Img5.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_img6.png">
+<meta property="og:image" content="https://viblo.asia/uploads/f087aedf-817a-441f-801f-ddda5d695e31.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1_Img1.png">
+<meta property="og:image" content="https://graphics.stanford.edu/courses/cs178/applets/convolution-equation4-c.jpg">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/4/4f/3D_Convolution_Animation.gif">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1_Img4.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1b_Img1.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1b_Img3.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1b_Img4.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step2_Img1.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step2_Img2.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step2_Img3.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step3_Img1.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step3_Img2.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step4_Img1.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step4_Img7.png">
+<meta property="og:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Summary_Img1.png">
+<meta property="og:updated_time" content="2018-09-16T08:22:31.719Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Học deep learning phần 4.">
+<meta name="twitter:description" content="Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra.">
+<meta name="twitter:image" content="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_Img4.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/6302012"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Oximen&#39;s blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture fa fa-question"
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Nguyen Tien Thanh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>(o.O)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/oximenvn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/OximenVN" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Học deep learning phần 4.
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-09-16T17:15:33+09:00">
+	
+		    Sep 16, 2018
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="Phan-4-Mang-no-ron-tich-chap-Convolutional-Neural-Network"><a href="#Phan-4-Mang-no-ron-tich-chap-Convolutional-Neural-Network" class="headerlink" title="Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)"></a>Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)</h1><p>Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_Img4.png" alt="anh1"><br>Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra. Mạng sẽ trả ra nhãn của vật trong hình. </p>
+<p><img src="/images/ANN/p31.png" alt="anh2"><br><a id="more"></a></p>
+<ol>
+<li>Một bức ảnh được truyền vào như thế nào?<br>Một bức ảnh gồm rất nhiều điểm ảnh, mỗi điểm sẽ được chuyển thành 1 giá trị nguyên từ 0 đến 255, rồi truyền vào mạng. </li>
+<li>Làm cách nào để chuyển 1 điểm ảnh thành số nguyên?<br>Nếu là ảnh đen trắng thì dễ rồi, càng đen thì số càng to, trắng là 0, đến đen nhất là 255. Còn ảnh màu thì như thế nào? Ảnh màu lưu dạng GRB(Green-Red-Blue: Xanh-Đỏ -Lam) nên sẽ có 3 số nguyên cho 3 màu Xanh, Đỏ, Lam.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_Img5.png" alt="anh3"><br>Vậy là 1 hình ảnh sẽ có dạng như thế này.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_img6.png" alt="anh4"></li>
+</ol>
+<p>Giờ nhìn vào cái CNN. CNN là gì?</p>
+<h2 id="Mang-no-ron-tich-chap-Convolutional-Neural-Network"><a href="#Mang-no-ron-tich-chap-Convolutional-Neural-Network" class="headerlink" title="Mạng nơ-ron tích chập (Convolutional Neural Network)"></a>Mạng nơ-ron tích chập (Convolutional Neural Network)</h2><p>Mạng nơ-ron tích chập trông như thế này.<br><img src="https://viblo.asia/uploads/f087aedf-817a-441f-801f-ddda5d695e31.png" alt="anh5"><br>Input là cái ảnh đã được nói phía trên. Các phần sau của input sẽ được nói ở dưới đây.<br>CNN gồm 4 bước xử lí:</p>
+<ul>
+<li>Bước 1: Tích chập (Convolution)</li>
+<li>Bước 1b: Lớp ReLU </li>
+<li>Bước 2: Gộp vào (Pooling)</li>
+<li>Bước 3: Làm phẳng (Flattening)</li>
+<li>Bước 4: Mạng nơ-ron đầy đủ (Full Connection) <em><strong>ở phần 3</strong></em><h3 id="Buoc-1-Tich-chap-CONVOLUTION"><a href="#Buoc-1-Tich-chap-CONVOLUTION" class="headerlink" title="Bước 1: Tích chập (CONVOLUTION)"></a>Bước 1: Tích chập (CONVOLUTION)</h3>Tích chập của hàm f(t) và g(t) được định nghĩa như sau:<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1_Img1.png" alt="anh6"><br>Đã thấy nó đơn giản chưa (\^o^). <strong>Nếu thấy nó đơn giản rồi thì bạn đếch về thế giới này. Hãy tắt ngay trình duyệt và trở về thế giới của bạn. </strong><br>Nếu f(t) là việc bạn nhấn chân ga tăng tốc, g(t) là việc thằng bên cạnh đạp phanh giảm tốc thì tích chập (f*g)(t) là quảng đường của vận tốc do (bạn đạp ga tăng tốc nhân với thằng bên cạnh nhả phanh (ngược lại với đạp phanh)).<br>Nhưng cái ảnh của mình lại là các điểm rời rạc. Tích chập của hàm rời rạc lại dễ hiểu hiểu nhiều.<br><img src="https://graphics.stanford.edu/courses/cs178/applets/convolution-equation4-c.jpg" alt="anh6"><br>(Vẫn đếch hiểu gì.) Mình tìm được 1 trang giải thích khá <a href="https://graphics.stanford.edu/courses/cs178/applets/convolution.html" target="_blank" rel="noopener">dễ hiểu.</a> Đầu tiên, ở cái 1D filter, chọn cái shift g(t)=1 tại t=-1,g(t)=0 tại t!=-1  , sẽ thấy kết quả của tích chập là dịch hàm f(t) 1 khoảng nhất định. Tùy thuộc vào hàm g(t) sẽ cho kết quả khác nhau, dịch trái phải, làm phẳng, … Với 1 cái ảnh 2 chiều dọc ngang như phần 2D. Cách tính tích chập như thế này.<br><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/3D_Convolution_Animation.gif" alt="anh7"><br>Nhìn hình đã thấy nó đơn giản chưa (\^_^).<br>Với hình mặt cười ban đầu, và 1 cái filter ngẫu nhiên, kết quả là ntn.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1_Img4.png" alt="anh8"></li>
+</ul>
+<h3 id="Buoc-1b-Lop-ReLU"><a href="#Buoc-1b-Lop-ReLU" class="headerlink" title="Bước 1b: Lớp ReLU"></a>Bước 1b: Lớp ReLU</h3><p>Mỗi giá trị của Feature Map sẽ đi qua nơ-ron reLU để loại bỏ phần giá trị âm, làm mất tính tuyến tính giữa các điểm trong Map.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1b_Img1.png" alt="anh9"><br>Map trước lớp RuLU trông như thế này. Có 1 khoảng chuyển giữa vùng sáng và vùng tối.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1b_Img3.png" alt="anh10"></p>
+<p>Sau khi qua lớp ReLU, khoảng chuyển này đã bị loại bỏ.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step1b_Img4.png" alt="anh11"></p>
+<h3 id="Buoc-2-Gop-vao-Pooling"><a href="#Buoc-2-Gop-vao-Pooling" class="headerlink" title="Bước 2: Gộp vào (Pooling)"></a>Bước 2: Gộp vào (Pooling)</h3><p>Làm cách nào để CNN nhận rdiện đc đối tượng ở nhiều khía cạnh khác nhau?<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step2_Img1.png" alt="anh12"><br>Trong thực tế còn phức tạp hơn nhiều.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step2_Img2.png" alt="anh13"><br>Việc gộp lại sẽ giúp giảm quyết vấn đề này.<br>Có 3 loại gộp:</p>
+<ul>
+<li>Gộp mean (Mean pooling)</li>
+<li>Gộp max (Max pooling)</li>
+<li>Gộp tổng (Sum pooling)</li>
+</ul>
+<p>Chúng ta tập trung vào gộp max. Chúng ta gộp theo 4 ô 2x2 từ trên trái dịch dần sang phải, xuống dưới. Mỗi lần dịch 2 ô. Trong mỗi nhóm 4 ô, lấy giá trị lớn nhất làm kết quả của gộp.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step2_Img3.png" alt="anh14"></p>
+<p><strong>Bước 1,1b và 2 thường được lặp lại nhiều lần tuỳ theo thiết kế CNN của tác giả.</strong></p>
+<h3 id="Buoc-3-Lam-phang-Flattening"><a href="#Buoc-3-Lam-phang-Flattening" class="headerlink" title="Bước 3: Làm phẳng (Flattening)"></a>Bước 3: Làm phẳng (Flattening)</h3><p>Đơn giản là duỗi thẳng cái hình chữ nhật ra.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step3_Img1.png" alt="anh15"></p>
+<p>Vì có nhiều map nên sẽ như thế này<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step3_Img2.png" alt="anh16"></p>
+<h3 id="Buoc-4-Mang-no-ron-day-du-Full-Connection"><a href="#Buoc-4-Mang-no-ron-day-du-Full-Connection" class="headerlink" title="Bước 4: Mạng nơ-ron đầy đủ (Full Connection)"></a>Bước 4: Mạng nơ-ron đầy đủ (Full Connection)</h3><p><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step4_Img1.png" alt="anh17"><br>Nếu để phân loại chó và mèo thì nó sẽ trông như thế này:<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Step4_Img7.png" alt="anh18"></p>
+<h3 id="Tong-ket-lai-nhu-the-nay"><a href="#Tong-ket-lai-nhu-the-nay" class="headerlink" title="Tổng kết lại như thế này"></a>Tổng kết lại như thế này</h3><p><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_Summary_Img1.png" alt="anh19"></p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/deep-learning/">deep learning</a> <a class="tag tag--primary tag--small t-link" href="/tags/neuron-network/">neuron network</a> <a class="tag tag--primary tag--small t-link" href="/tags/python/">python</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/08/26/Hoc-deep-learning-p3/" data-tooltip="Học deep learning phần 3." aria-label="NEXT: Học deep learning phần 3.">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Nguyen Tien Thanh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/08/26/Hoc-deep-learning-p3/" data-tooltip="Học deep learning phần 3." aria-label="NEXT: Học deep learning phần 3.">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/09/16/Hoc-deep-learning-phan-4/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Nguyen Tien Thanh</h4>
+        
+            <div id="about-card-bio"><p>(o.O)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Spamer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Kanagawa,Japan
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+    </body>
+</html>
