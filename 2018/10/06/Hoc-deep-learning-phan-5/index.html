@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Oximen&#39;s blog">
+    <title>Học deep learning phần 5. - Oximen&#39;s blog</title>
+    <meta name="author" content="Nguyen Tien Thanh">
+    
+        <meta name="keywords" content="javascript,hexo,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả.\n123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git# Installing Tensorflow# pip install tensorflow# Installing Keras# pip install --upgrade keras# Part 1 - Building the CNN\n\n123456789# Importing the Keras libraries and packagesfrom keras.models import Sequentialfrom keras.layers import Conv2Dfrom keras.layers import MaxPooling2Dfrom keras.layers import Flattenfrom keras.layers import Dense# Initialising the CNNclassifier = Sequential()\nThêm lớp tích chập 2 chiều (Conv2D) với số lượng 32 bộ lọc, kích thước là 3 x 3. Đầu vào là ảnh đã được xử lí (64,64,3) dùng hàm kích hoạt là relu.12# Step 1 - Convolutionclassifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))\nTổng hợp theo giá trị lớn nhất. MaxPooling2D12# Step 2 - Poolingclassifier.add(MaxPooling2D(pool_size = (2, 2)))\nLàm thêm 1 lượt nữa.123# Adding a second convolutional layerclassifier.add(Conv2D(32, (3, 3), activation = 'relu'))classifier.add(MaxPooling2D(pool_size = (2, 2)))\nSử dụng Flatten để làm phẳng12# Step 3 - Flatteningclassifier.add(Flatten())\nTruyền tất cả giá trị qua mạng nơ-ron.12345678910# Step 4 - Full connectionclassifier.add(Dense(units = 128, activation = 'relu'))classifier.add(Dense(units = 1, activation = 'sigmoid'))# Compiling the CNNclassifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])# Part 2 - Fitting the CNN to the imagesfrom keras.preprocessing.image import ImageDataGenerator\nĐọc và biến đổi dữ liệu. Cắt, phóng ta, lật để tạo thêm dữ liệu, tăng hiệu quả của mạng. Xem chi tiết tại ImageDataGenerator.123456789101112131415161718192021222324train_datagen = ImageDataGenerator(rescale = 1./255,                                   shear_range = 0.2,                                   zoom_range = 0.2,                                   horizontal_flip = True)test_datagen = ImageDataGenerator(rescale = 1./255)training_set = train_datagen.flow_from_directory('dataset/training_set',                                                 target_size = (64, 64),                                                 batch_size = 32,                                                 class_mode = 'binary')test_set = test_datagen.flow_from_directory('dataset/test_set',                                            target_size = (64, 64),                                            batch_size = 32,                                            class_mode = 'binary')classifier.fit_generator(training_set,                         steps_per_epoch = 8000,                         epochs = 2,                         validation_data = test_set,                         validation_steps = 2000)\n","dateCreated":"2018-10-06T17:59:45+09:00","dateModified":"2018-10-07T16:30:01+09:00","datePublished":"2018-10-06T17:59:45+09:00","description":"Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả.\n123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git# Installing Tensorflow# pip install tensorflow# Installing Keras# pip install --upgrade keras# Part 1 - Building the CNN","headline":"Học deep learning phần 5.","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/"}</script>
+    <meta name="description" content="Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả. 123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Thea">
+<meta name="keywords" content="javascript,hexo">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Học deep learning phần 5.">
+<meta property="og:url" content="http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/index.html">
+<meta property="og:site_name" content="Oximen&#39;s blog">
+<meta property="og:description" content="Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả. 123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Thea">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-07T07:30:01.590Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Học deep learning phần 5.">
+<meta name="twitter:description" content="Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả. 123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Thea">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/6302012"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Oximen&#39;s blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture fa fa-question"
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Nguyen Tien Thanh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>(o.O)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/oximenvn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/OximenVN" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Học deep learning phần 5.
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-10-06T17:59:45+09:00">
+	
+		    Oct 06, 2018
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h4 id="Dung-mang-Convolutional-Neural-Network"><a href="#Dung-mang-Convolutional-Neural-Network" class="headerlink" title="Dựng mạng Convolutional Neural Network"></a>Dựng mạng Convolutional Neural Network</h4><p>Cái này đơn giản, chả có gì để nói cả.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Convolutional Neural Network</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Theano</span></span><br><span class="line"><span class="comment"># pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Tensorflow</span></span><br><span class="line"><span class="comment"># pip install tensorflow</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Keras</span></span><br><span class="line"><span class="comment"># pip install --upgrade keras</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 1 - Building the CNN</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Importing the Keras libraries and packages</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Conv2D</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> MaxPooling2D</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Flatten</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialising the CNN</span></span><br><span class="line">classifier = Sequential()</span><br></pre></td></tr></table></figure>
+<p>Thêm lớp tích chập 2 chiều (<a href="https://keras.io/layers/convolutional/#conv2d" target="_blank" rel="noopener">Conv2D</a>) với số lượng 32 bộ lọc, kích thước là 3 x 3. Đầu vào là ảnh đã được xử lí (64,64,3) dùng hàm kích hoạt là relu.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step 1 - Convolution</span></span><br><span class="line">classifier.add(Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), input_shape = (<span class="number">64</span>, <span class="number">64</span>, <span class="number">3</span>), activation = <span class="string">'relu'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>Tổng hợp theo giá trị lớn nhất. <a href="https://keras.io/layers/pooling/#maxpooling2d" target="_blank" rel="noopener">MaxPooling2D</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step 2 - Pooling</span></span><br><span class="line">classifier.add(MaxPooling2D(pool_size = (<span class="number">2</span>, <span class="number">2</span>)))</span><br></pre></td></tr></table></figure></p>
+<p>Làm thêm 1 lượt nữa.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Adding a second convolutional layer</span></span><br><span class="line">classifier.add(Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), activation = <span class="string">'relu'</span>))</span><br><span class="line">classifier.add(MaxPooling2D(pool_size = (<span class="number">2</span>, <span class="number">2</span>)))</span><br></pre></td></tr></table></figure></p>
+<p>Sử dụng <a href="https://keras.io/layers/core/#flatten" target="_blank" rel="noopener">Flatten</a> để làm phẳng<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step 3 - Flattening</span></span><br><span class="line">classifier.add(Flatten())</span><br></pre></td></tr></table></figure></p>
+<p>Truyền tất cả giá trị qua mạng nơ-ron.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step 4 - Full connection</span></span><br><span class="line">classifier.add(Dense(units = <span class="number">128</span>, activation = <span class="string">'relu'</span>))</span><br><span class="line">classifier.add(Dense(units = <span class="number">1</span>, activation = <span class="string">'sigmoid'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compiling the CNN</span></span><br><span class="line">classifier.compile(optimizer = <span class="string">'adam'</span>, loss = <span class="string">'binary_crossentropy'</span>, metrics = [<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 2 - Fitting the CNN to the images</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> ImageDataGenerator</span><br></pre></td></tr></table></figure></p>
+<p>Đọc và biến đổi dữ liệu. Cắt, phóng ta, lật để tạo thêm dữ liệu, tăng hiệu quả của mạng. Xem chi tiết tại <a href="https://keras.io/preprocessing/image/#imagedatagenerator-class" target="_blank" rel="noopener">ImageDataGenerator.</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">train_datagen = ImageDataGenerator(rescale = <span class="number">1.</span>/<span class="number">255</span>,</span><br><span class="line">                                   shear_range = <span class="number">0.2</span>,</span><br><span class="line">                                   zoom_range = <span class="number">0.2</span>,</span><br><span class="line">                                   horizontal_flip = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">test_datagen = ImageDataGenerator(rescale = <span class="number">1.</span>/<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">training_set = train_datagen.flow_from_directory(<span class="string">'dataset/training_set'</span>,</span><br><span class="line">                                                 target_size = (<span class="number">64</span>, <span class="number">64</span>),</span><br><span class="line">                                                 batch_size = <span class="number">32</span>,</span><br><span class="line">                                                 class_mode = <span class="string">'binary'</span>)</span><br><span class="line"></span><br><span class="line">test_set = test_datagen.flow_from_directory(<span class="string">'dataset/test_set'</span>,</span><br><span class="line">                                            target_size = (<span class="number">64</span>, <span class="number">64</span>),</span><br><span class="line">                                            batch_size = <span class="number">32</span>,</span><br><span class="line">                                            class_mode = <span class="string">'binary'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">classifier.fit_generator(training_set,</span><br><span class="line">                         steps_per_epoch = <span class="number">8000</span>,</span><br><span class="line">                         epochs = <span class="number">2</span>,</span><br><span class="line">                         validation_data = test_set,</span><br><span class="line">                         validation_steps = <span class="number">2000</span>)</span><br></pre></td></tr></table></figure></p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/09/16/Hoc-deep-learning-phan-4/" data-tooltip="Học deep learning phần 4." aria-label="NEXT: Học deep learning phần 4.">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Nguyen Tien Thanh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/09/16/Hoc-deep-learning-phan-4/" data-tooltip="Học deep learning phần 4." aria-label="NEXT: Học deep learning phần 4.">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Nguyen Tien Thanh</h4>
+        
+            <div id="about-card-bio"><p>(o.O)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Spamer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Kanagawa,Japan
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+    </body>
+</html>
