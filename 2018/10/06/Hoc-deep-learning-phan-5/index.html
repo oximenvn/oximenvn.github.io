@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Oximen&#39;s blog">
-    <title>Học deep learning phần 5. - Oximen&#39;s blog</title>
+    <title>Dựng mạng Convolutional Neural Network - Oximen&#39;s blog</title>
     <meta name="author" content="Nguyen Tien Thanh">
     
         <meta name="keywords" content="javascript,hexo,">
@@ -15,18 +15,18 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả.\n123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git# Installing Tensorflow# pip install tensorflow# Installing Keras# pip install --upgrade keras# Part 1 - Building the CNN\n\n123456789# Importing the Keras libraries and packagesfrom keras.models import Sequentialfrom keras.layers import Conv2Dfrom keras.layers import MaxPooling2Dfrom keras.layers import Flattenfrom keras.layers import Dense# Initialising the CNNclassifier = Sequential()\nThêm lớp tích chập 2 chiều (Conv2D) với số lượng 32 bộ lọc, kích thước là 3 x 3. Đầu vào là ảnh đã được xử lí (64,64,3) dùng hàm kích hoạt là relu.12# Step 1 - Convolutionclassifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))\nTổng hợp theo giá trị lớn nhất. MaxPooling2D12# Step 2 - Poolingclassifier.add(MaxPooling2D(pool_size = (2, 2)))\nLàm thêm 1 lượt nữa.123# Adding a second convolutional layerclassifier.add(Conv2D(32, (3, 3), activation = 'relu'))classifier.add(MaxPooling2D(pool_size = (2, 2)))\nSử dụng Flatten để làm phẳng12# Step 3 - Flatteningclassifier.add(Flatten())\nTruyền tất cả giá trị qua mạng nơ-ron.12345678910# Step 4 - Full connectionclassifier.add(Dense(units = 128, activation = 'relu'))classifier.add(Dense(units = 1, activation = 'sigmoid'))# Compiling the CNNclassifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])# Part 2 - Fitting the CNN to the imagesfrom keras.preprocessing.image import ImageDataGenerator\nĐọc và biến đổi dữ liệu. Cắt, phóng ta, lật để tạo thêm dữ liệu, tăng hiệu quả của mạng. Xem chi tiết tại ImageDataGenerator.123456789101112131415161718192021222324train_datagen = ImageDataGenerator(rescale = 1./255,                                   shear_range = 0.2,                                   zoom_range = 0.2,                                   horizontal_flip = True)test_datagen = ImageDataGenerator(rescale = 1./255)training_set = train_datagen.flow_from_directory('dataset/training_set',                                                 target_size = (64, 64),                                                 batch_size = 32,                                                 class_mode = 'binary')test_set = test_datagen.flow_from_directory('dataset/test_set',                                            target_size = (64, 64),                                            batch_size = 32,                                            class_mode = 'binary')classifier.fit_generator(training_set,                         steps_per_epoch = 8000,                         epochs = 2,                         validation_data = test_set,                         validation_steps = 2000)\n","dateCreated":"2018-10-06T17:59:45+09:00","dateModified":"2018-10-21T09:26:31+09:00","datePublished":"2018-10-06T17:59:45+09:00","description":"Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả.\n123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git# Installing Tensorflow# pip install tensorflow# Installing Keras# pip install --upgrade keras# Part 1 - Building the CNN","headline":"Học deep learning phần 5.","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/","keywords":"deep learning, python, neuron network"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả.\n123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git# Installing Tensorflow# pip install tensorflow# Installing Keras# pip install --upgrade keras# Part 1 - Building the CNN\n\n123456789# Importing the Keras libraries and packagesfrom keras.models import Sequentialfrom keras.layers import Conv2Dfrom keras.layers import MaxPooling2Dfrom keras.layers import Flattenfrom keras.layers import Dense# Initialising the CNNclassifier = Sequential()\nThêm lớp tích chập 2 chiều (Conv2D) với số lượng 32 bộ lọc, kích thước là 3 x 3. Đầu vào là ảnh đã được xử lí (64,64,3) dùng hàm kích hoạt là relu.12# Step 1 - Convolutionclassifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))\nTổng hợp theo giá trị lớn nhất. MaxPooling2D12# Step 2 - Poolingclassifier.add(MaxPooling2D(pool_size = (2, 2)))\nLàm thêm 1 lượt nữa.123# Adding a second convolutional layerclassifier.add(Conv2D(32, (3, 3), activation = 'relu'))classifier.add(MaxPooling2D(pool_size = (2, 2)))\nSử dụng Flatten để làm phẳng12# Step 3 - Flatteningclassifier.add(Flatten())\nTruyền tất cả giá trị qua mạng nơ-ron.12345678910# Step 4 - Full connectionclassifier.add(Dense(units = 128, activation = 'relu'))classifier.add(Dense(units = 1, activation = 'sigmoid'))# Compiling the CNNclassifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])# Part 2 - Fitting the CNN to the imagesfrom keras.preprocessing.image import ImageDataGenerator\nĐọc và biến đổi dữ liệu. Cắt, phóng ta, lật để tạo thêm dữ liệu, tăng hiệu quả của mạng. Xem chi tiết tại ImageDataGenerator.123456789101112131415161718192021222324train_datagen = ImageDataGenerator(rescale = 1./255,                                   shear_range = 0.2,                                   zoom_range = 0.2,                                   horizontal_flip = True)test_datagen = ImageDataGenerator(rescale = 1./255)training_set = train_datagen.flow_from_directory('dataset/training_set',                                                 target_size = (64, 64),                                                 batch_size = 32,                                                 class_mode = 'binary')test_set = test_datagen.flow_from_directory('dataset/test_set',                                            target_size = (64, 64),                                            batch_size = 32,                                            class_mode = 'binary')classifier.fit_generator(training_set,                         steps_per_epoch = 8000,                         epochs = 2,                         validation_data = test_set,                         validation_steps = 2000)\n","dateCreated":"2018-10-06T17:59:45+09:00","dateModified":"2018-11-11T17:38:44+09:00","datePublished":"2018-10-06T17:59:45+09:00","description":"Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả.\n123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git# Installing Tensorflow# pip install tensorflow# Installing Keras# pip install --upgrade keras# Part 1 - Building the CNN","headline":"Dựng mạng Convolutional Neural Network","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/","keywords":"deep learning, python, neuron network"}</script>
     <meta name="description" content="Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả. 123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Thea">
 <meta name="keywords" content="deep learning,python,neuron network">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Học deep learning phần 5.">
+<meta property="og:title" content="Dựng mạng Convolutional Neural Network">
 <meta property="og:url" content="http://nemixo.xyz/2018/10/06/Hoc-deep-learning-phan-5/index.html">
 <meta property="og:site_name" content="Oximen&#39;s blog">
 <meta property="og:description" content="Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả. 123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Thea">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-21T00:26:31.623Z">
+<meta property="og:updated_time" content="2018-11-11T08:38:44.172Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Học deep learning phần 5.">
+<meta name="twitter:title" content="Dựng mạng Convolutional Neural Network">
 <meta name="twitter:description" content="Dựng mạng Convolutional Neural NetworkCái này đơn giản, chả có gì để nói cả. 123456789101112# Convolutional Neural Network# Installing Theano# pip install --upgrade --no-deps git+git://github.com/Thea">
     
     
@@ -208,7 +208,7 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Học deep learning phần 5.
+            Dựng mạng Convolutional Neural Network
         </h1>
     
     
@@ -258,7 +258,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/21/Hoc-deep-learning-phan-6/" data-tooltip="Học deep learning phần 6" aria-label="PREVIOUS: Học deep learning phần 6">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/21/Hoc-deep-learning-phan-6/" data-tooltip="Mạng nơ-ron hồi quy (Recurrent Neural Networks)" aria-label="PREVIOUS: Mạng nơ-ron hồi quy (Recurrent Neural Networks)">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -267,7 +267,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/09/16/Hoc-deep-learning-phan-4/" data-tooltip="Học deep learning phần 4." aria-label="NEXT: Học deep learning phần 4.">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/09/16/Hoc-deep-learning-phan-4/" data-tooltip="Mạng nơ-ron tích chập ( Convolutional Neural Network)." aria-label="NEXT: Mạng nơ-ron tích chập ( Convolutional Neural Network).">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -344,7 +344,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/21/Hoc-deep-learning-phan-6/" data-tooltip="Học deep learning phần 6" aria-label="PREVIOUS: Học deep learning phần 6">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/21/Hoc-deep-learning-phan-6/" data-tooltip="Mạng nơ-ron hồi quy (Recurrent Neural Networks)" aria-label="PREVIOUS: Mạng nơ-ron hồi quy (Recurrent Neural Networks)">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -353,7 +353,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/09/16/Hoc-deep-learning-phan-4/" data-tooltip="Học deep learning phần 4." aria-label="NEXT: Học deep learning phần 4.">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/09/16/Hoc-deep-learning-phan-4/" data-tooltip="Mạng nơ-ron tích chập ( Convolutional Neural Network)." aria-label="NEXT: Mạng nơ-ron tích chập ( Convolutional Neural Network).">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>

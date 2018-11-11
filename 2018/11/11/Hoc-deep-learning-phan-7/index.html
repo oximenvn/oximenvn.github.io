@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Oximen&#39;s blog">
+    <title>Code RNN - Oximen&#39;s blog</title>
+    <meta name="author" content="Nguyen Tien Thanh">
+    
+        <meta name="keywords" content="javascript,hexo,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Code RNN12345678910111213141516171819# Recurrent Neural Network# Part 1 - Data Preprocessing# Importing the librariesimport numpy as npimport matplotlib.pyplot as pltimport pandas as pd# Importing the training setdataset_train = pd.read_csv('Google_Stock_Price_Train.csv')training_set = dataset_train.iloc[:, 1:2].values# Feature Scalingfrom sklearn.preprocessing import MinMaxScalersc = MinMaxScaler(feature_range = (0, 1))training_set_scaled = sc.fit_transform(training_set)\n\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778# Creating a data structure with 60 timesteps and 1 outputX_train = []y_train = []for i in range(60, 1258):    X_train.append(training_set_scaled[i-60:i, 0])    y_train.append(training_set_scaled[i, 0])X_train, y_train = np.array(X_train), np.array(y_train)# ReshapingX_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))# Part 2 - Building the RNN# Importing the Keras libraries and packagesfrom keras.models import Sequentialfrom keras.layers import Densefrom keras.layers import LSTMfrom keras.layers import Dropout# Initialising the RNNregressor = Sequential()# Adding the first LSTM layer and some Dropout regularisationregressor.add(LSTM(units = 50, return_sequences = True, input_shape = (X_train.shape[1], 1)))regressor.add(Dropout(0.2))# Adding a second LSTM layer and some Dropout regularisationregressor.add(LSTM(units = 50, return_sequences = True))regressor.add(Dropout(0.2))# Adding a third LSTM layer and some Dropout regularisationregressor.add(LSTM(units = 50, return_sequences = True))regressor.add(Dropout(0.2))# Adding a fourth LSTM layer and some Dropout regularisationregressor.add(LSTM(units = 50))regressor.add(Dropout(0.2))# Adding the output layerregressor.add(Dense(units = 1))# Compiling the RNNregressor.compile(optimizer = 'adam', loss = 'mean_squared_error')# Fitting the RNN to the Training setregressor.fit(X_train, y_train, epochs = 100, batch_size = 32)# Part 3 - Making the predictions and visualising the results# Getting the real stock price of 2017dataset_test = pd.read_csv('Google_Stock_Price_Test.csv')real_stock_price = dataset_test.iloc[:, 1:2].values# Getting the predicted stock price of 2017dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis = 0)inputs = dataset_total[len(dataset_total) - len(dataset_test) - 60:].valuesinputs = inputs.reshape(-1,1)inputs = sc.transform(inputs)X_test = []for i in range(60, 80):    X_test.append(inputs[i-60:i, 0])X_test = np.array(X_test)X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))predicted_stock_price = regressor.predict(X_test)predicted_stock_price = sc.inverse_transform(predicted_stock_price)# Visualising the resultsplt.plot(real_stock_price, color = 'red', label = 'Real Google Stock Price')plt.plot(predicted_stock_price, color = 'blue', label = 'Predicted Google Stock Price')plt.title('Google Stock Price Prediction')plt.xlabel('Time')plt.ylabel('Google Stock Price')plt.legend()plt.show()\n","dateCreated":"2018-11-11T17:31:06+09:00","dateModified":"2018-11-11T17:41:08+09:00","datePublished":"2018-11-11T17:31:06+09:00","description":"Code RNN12345678910111213141516171819# Recurrent Neural Network# Part 1 - Data Preprocessing# Importing the librariesimport numpy as npimport matplotlib.pyplot as pltimport pandas as pd# Importing the training setdataset_train = pd.read_csv('Google_Stock_Price_Train.csv')training_set = dataset_train.iloc[:, 1:2].values# Feature Scalingfrom sklearn.preprocessing import MinMaxScalersc = MinMaxScaler(feature_range = (0, 1))training_set_scaled = sc.fit_transform(training_set)","headline":"Code RNN","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/","keywords":"deep learning, python, neuron network"}</script>
+    <meta name="description" content="Code RNN12345678910111213141516171819# Recurrent Neural Network# Part 1 - Data Preprocessing# Importing the librariesimport numpy as npimport matplotlib.pyplot as pltimport pandas as pd# Importing the">
+<meta name="keywords" content="deep learning,python,neuron network">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Code RNN">
+<meta property="og:url" content="http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/index.html">
+<meta property="og:site_name" content="Oximen&#39;s blog">
+<meta property="og:description" content="Code RNN12345678910111213141516171819# Recurrent Neural Network# Part 1 - Data Preprocessing# Importing the librariesimport numpy as npimport matplotlib.pyplot as pltimport pandas as pd# Importing the">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-11T08:41:08.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Code RNN">
+<meta name="twitter:description" content="Code RNN12345678910111213141516171819# Recurrent Neural Network# Part 1 - Data Preprocessing# Importing the librariesimport numpy as npimport matplotlib.pyplot as pltimport pandas as pd# Importing the">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/6302012"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-127727526-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Oximen&#39;s blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture fa fa-question"
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Nguyen Tien Thanh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>(o.O)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/oximenvn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/OximenVN" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Code RNN
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-11-11T17:31:06+09:00">
+	
+		    Nov 11, 2018
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h4 id="Code-RNN"><a href="#Code-RNN" class="headerlink" title="Code RNN"></a>Code RNN</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Recurrent Neural Network</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 1 - Data Preprocessing</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Importing the libraries</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Importing the training set</span></span><br><span class="line">dataset_train = pd.read_csv(<span class="string">'Google_Stock_Price_Train.csv'</span>)</span><br><span class="line">training_set = dataset_train.iloc[:, <span class="number">1</span>:<span class="number">2</span>].values</span><br><span class="line"></span><br><span class="line"><span class="comment"># Feature Scaling</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">sc = MinMaxScaler(feature_range = (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">training_set_scaled = sc.fit_transform(training_set)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Creating a data structure with 60 timesteps and 1 output</span></span><br><span class="line">X_train = []</span><br><span class="line">y_train = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">60</span>, <span class="number">1258</span>):</span><br><span class="line">    X_train.append(training_set_scaled[i<span class="number">-60</span>:i, <span class="number">0</span>])</span><br><span class="line">    y_train.append(training_set_scaled[i, <span class="number">0</span>])</span><br><span class="line">X_train, y_train = np.array(X_train), np.array(y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reshaping</span></span><br><span class="line">X_train = np.reshape(X_train, (X_train.shape[<span class="number">0</span>], X_train.shape[<span class="number">1</span>], <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 2 - Building the RNN</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Importing the Keras libraries and packages</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> LSTM</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dropout</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialising the RNN</span></span><br><span class="line">regressor = Sequential()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adding the first LSTM layer and some Dropout regularisation</span></span><br><span class="line">regressor.add(LSTM(units = <span class="number">50</span>, return_sequences = <span class="keyword">True</span>, input_shape = (X_train.shape[<span class="number">1</span>], <span class="number">1</span>)))</span><br><span class="line">regressor.add(Dropout(<span class="number">0.2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adding a second LSTM layer and some Dropout regularisation</span></span><br><span class="line">regressor.add(LSTM(units = <span class="number">50</span>, return_sequences = <span class="keyword">True</span>))</span><br><span class="line">regressor.add(Dropout(<span class="number">0.2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adding a third LSTM layer and some Dropout regularisation</span></span><br><span class="line">regressor.add(LSTM(units = <span class="number">50</span>, return_sequences = <span class="keyword">True</span>))</span><br><span class="line">regressor.add(Dropout(<span class="number">0.2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adding a fourth LSTM layer and some Dropout regularisation</span></span><br><span class="line">regressor.add(LSTM(units = <span class="number">50</span>))</span><br><span class="line">regressor.add(Dropout(<span class="number">0.2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adding the output layer</span></span><br><span class="line">regressor.add(Dense(units = <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compiling the RNN</span></span><br><span class="line">regressor.compile(optimizer = <span class="string">'adam'</span>, loss = <span class="string">'mean_squared_error'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fitting the RNN to the Training set</span></span><br><span class="line">regressor.fit(X_train, y_train, epochs = <span class="number">100</span>, batch_size = <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 3 - Making the predictions and visualising the results</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Getting the real stock price of 2017</span></span><br><span class="line">dataset_test = pd.read_csv(<span class="string">'Google_Stock_Price_Test.csv'</span>)</span><br><span class="line">real_stock_price = dataset_test.iloc[:, <span class="number">1</span>:<span class="number">2</span>].values</span><br><span class="line"></span><br><span class="line"><span class="comment"># Getting the predicted stock price of 2017</span></span><br><span class="line">dataset_total = pd.concat((dataset_train[<span class="string">'Open'</span>], dataset_test[<span class="string">'Open'</span>]), axis = <span class="number">0</span>)</span><br><span class="line">inputs = dataset_total[len(dataset_total) - len(dataset_test) - <span class="number">60</span>:].values</span><br><span class="line">inputs = inputs.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">inputs = sc.transform(inputs)</span><br><span class="line">X_test = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">60</span>, <span class="number">80</span>):</span><br><span class="line">    X_test.append(inputs[i<span class="number">-60</span>:i, <span class="number">0</span>])</span><br><span class="line">X_test = np.array(X_test)</span><br><span class="line">X_test = np.reshape(X_test, (X_test.shape[<span class="number">0</span>], X_test.shape[<span class="number">1</span>], <span class="number">1</span>))</span><br><span class="line">predicted_stock_price = regressor.predict(X_test)</span><br><span class="line">predicted_stock_price = sc.inverse_transform(predicted_stock_price)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Visualising the results</span></span><br><span class="line">plt.plot(real_stock_price, color = <span class="string">'red'</span>, label = <span class="string">'Real Google Stock Price'</span>)</span><br><span class="line">plt.plot(predicted_stock_price, color = <span class="string">'blue'</span>, label = <span class="string">'Predicted Google Stock Price'</span>)</span><br><span class="line">plt.title(<span class="string">'Google Stock Price Prediction'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Time'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Google Stock Price'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/deep-learning/">deep learning</a> <a class="tag tag--primary tag--small t-link" href="/tags/neuron-network/">neuron network</a> <a class="tag tag--primary tag--small t-link" href="/tags/python/">python</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/21/Hoc-deep-learning-phan-6/" data-tooltip="Mạng nơ-ron hồi quy (Recurrent Neural Networks)" aria-label="NEXT: Mạng nơ-ron hồi quy (Recurrent Neural Networks)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 Nguyen Tien Thanh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/21/Hoc-deep-learning-phan-6/" data-tooltip="Mạng nơ-ron hồi quy (Recurrent Neural Networks)" aria-label="NEXT: Mạng nơ-ron hồi quy (Recurrent Neural Networks)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2018/11/11/Hoc-deep-learning-phan-7/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Nguyen Tien Thanh</h4>
+        
+            <div id="about-card-bio"><p>(o.O)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Spamer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Kanagawa,Japan
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+    </body>
+</html>
