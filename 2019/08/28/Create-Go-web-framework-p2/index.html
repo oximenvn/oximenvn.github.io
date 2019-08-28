@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Oximen&#39;s blog">
-    <title>Create a Go web framework p1 - Oximen&#39;s blog</title>
+    <title>Create Go web framework p2 - Oximen&#39;s blog</title>
     <meta name="author" content="Nguyen Tien Thanh">
     
         <meta name="keywords" content="javascript,hexo,">
@@ -15,24 +15,23 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Ý tưởngSau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có thể phục vụ hàng tỉ yêu cầu, cho hàng triệu system engineer sử dụng. Framework sẽ sử dụng các nguyên lý, kiến thức cơ bản, dễ hiểu đối với mọi người, để ai cũng có thể hiểu, mở rộng, phát triển framework này. Hơn nữa, framework này sẽ là một mô hình để mọi người có thể hiểu cơ chế hoạt động của các framework hiện đại. \nTại sao lại là goNhững ngôn ngữ chúng ta hay sử dụng: C, C++, Java, Python, PHP, Javascript,… đều là các ngôn ngữ từ “thời tiền sử”.Máy tính năm 1995, CPU 75Mhz, RAM 8MB.\n\nRAM 8MB còn nhỏ hơn 1 bức ảnh bây giờ. Ảnh chụp bằng Sony A7 nặng 13MB.\nCác ngôn ngữ cũ được thiết kế trên máy 1 luồng cpu, và không tận dụng được các CPU hiện đại. 1 Luồng chạy hộc máu, 47 cái còn lại ngồi chơi :-?\nGo ra đời nhằm giải quyết vấn đề đó. Một ngôn ngữ được thiết kế để đễ dàng chạy đồng thời trên 48 luồng. Like a boss :))\nTại sao lại là web frameworkĐã tập code đẻ học ngôn ngữ mới thì phải code cái gì pro tí. Chả nhẽ suốt ngày Hello world. Trẻ con lớp 2 cũng code được. \nMô hình frameworkMình sử dụng mô hình “quốc dân”, khá dễ hiểu: MVC. MVC là viết tắt của Model - View - ControllerMô hình web framework hiện đại có thêm 1 lớp phụ là Router. (chém gió thế chứ mình cũng chả biết framework cổ dại trông ntn)Chức năng cơ bản của các thành phaanf như sau:\n\nRouter: Chuyển yêu cầu truy cập của người dùng đến Controller tương ứng.\nController: Thực hiện các chức năng chính của hệ thống, giao tiếp với Model để xử lí dữ liệu:yêu cầu tìm, thêm, sửa, xóa, …\nModel: Thao tác với cơ sở dữ liệu theo yêu cầu của Controller\nView: hiển thị thông tin, dữ liệu cần thiết cho người dùng.\n\n\nQuy trình như sau:\n\n1.Người dùng gửi yêu cầu\n2.Router chuyển yêu cầu đến Controller thích hợp\n3.Controller làm việc với Model để có dữ liệu cần thiết. Model lấy, ghi dữ liệu từ Database\n4.Controller gọi View để trình bày kết quả.\n5.View trình bày kết quả và hiển thị cho người dùng. \nÝ tưởng đại khái là như bao framework khác. [Của mình phải pro hơn chứ :p]\n\n\n","dateCreated":"2019-08-26T23:52:32+09:00","dateModified":"2019-08-27T01:24:08+09:00","datePublished":"2019-08-26T23:52:32+09:00","description":"Ý tưởngSau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có thể phục vụ hàng tỉ yêu cầu, cho hàng triệu system engineer sử dụng. Framework sẽ sử dụng các nguyên lý, kiến thức cơ bản, dễ hiểu đối với mọi người, để ai cũng có thể hiểu, mở rộng, phát triển framework này. Hơn nữa, framework này sẽ là một mô hình để mọi người có thể hiểu cơ chế hoạt động của các framework hiện đại. \nTại sao lại là goNhững ngôn ngữ chúng ta hay sử dụng: C, C++, Java, Python, PHP, Javascript,… đều là các ngôn ngữ từ “thời tiền sử”.Máy tính năm 1995, CPU 75Mhz, RAM 8MB.","headline":"Create a Go web framework p1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/","keywords":"golang, go, framework"}</script>
-    <meta name="description" content="Ý tưởngSau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau.\nFramework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.Cơ ché hot reload này đơn giản lắm.Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).\nMình sẽ tạo cho framework 1 kênh để nghe những thông báo từ bên ngoài. Nếu trùng với thông báo thiết lập sẵn thì reload lại thiết lập.Framework sẽ có 1 cái sub command là reload, khi chạy nó, nó sẽ báo cho server reload. \n12345678thanh@thanh-desktop:/media/thanh/p2/Go/Framwork$ ./Go-Framework -h2019/08/28 23:39:41 Started. PID:20057Usage of ./Go-Framework: &lt;command&gt; Commands:  reload -pid=&lt;PID&gt;   Request server reload configuration  help                Display this help and exit  version             Display version information.\n\nKhi chạy sẽ trông như thế này.Bên trái là server. Bên phải là thằng gọi reload. nemixo đã đổi thành oximen. ;)\n","dateCreated":"2019-08-28T22:12:01+09:00","dateModified":"2019-08-29T00:28:12+09:00","datePublished":"2019-08-28T22:12:01+09:00","description":"","headline":"Create Go web framework p2","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/","keywords":"golang, go, framework"}</script>
+    <meta name="description" content="Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau. Framework">
 <meta name="keywords" content="golang,go,framework">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Create a Go web framework p1">
-<meta property="og:url" content="http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/index.html">
+<meta property="og:title" content="Create Go web framework p2">
+<meta property="og:url" content="http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/index.html">
 <meta property="og:site_name" content="Oximen&#39;s blog">
-<meta property="og:description" content="Ý tưởngSau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có">
+<meta property="og:description" content="Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau. Framework">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/Early95spec.jpg">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/DSC3150.JPG">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/new.png">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/mvc.png">
-<meta property="og:updated_time" content="2019-08-26T16:24:08.670Z">
+<meta property="og:image" content="http://nemixo.xyz/images/GoF/p2-1.png">
+<meta property="og:image" content="http://nemixo.xyz/images/GoF/p2-2.png">
+<meta property="og:image" content="http://nemixo.xyz/images/GoF/p2-3.png">
+<meta property="og:updated_time" content="2019-08-28T15:28:12.893Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Create a Go web framework p1">
-<meta name="twitter:description" content="Ý tưởngSau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có">
-<meta name="twitter:image" content="http://nemixo.xyz/images/GoF/Early95spec.jpg">
+<meta name="twitter:title" content="Create Go web framework p2">
+<meta name="twitter:description" content="Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau. Framework">
+<meta name="twitter:image" content="http://nemixo.xyz/images/GoF/p2-1.png">
     
     
         
@@ -213,14 +212,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Create a Go web framework p1
+            Create Go web framework p2
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2019-08-26T23:52:32+09:00">
+    <time datetime="2019-08-28T22:12:01+09:00">
 	
-		    Aug 26, 2019
+		    Aug 28, 2019
     	
     </time>
     
@@ -232,31 +231,12 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="Y-tuong"><a href="#Y-tuong" class="headerlink" title="Ý tưởng"></a>Ý tưởng</h1><p>Sau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có thể phục vụ hàng tỉ yêu cầu, cho hàng triệu system engineer sử dụng. Framework sẽ sử dụng các nguyên lý, kiến thức cơ bản, dễ hiểu đối với mọi người, để ai cũng có thể hiểu, mở rộng, phát triển framework này. Hơn nữa, framework này sẽ là một mô hình để mọi người có thể hiểu cơ chế hoạt động của các framework hiện đại. </p>
-<h1 id="Tai-sao-lai-la-go"><a href="#Tai-sao-lai-la-go" class="headerlink" title="Tại sao lại là go"></a>Tại sao lại là go</h1><p>Những ngôn ngữ chúng ta hay sử dụng: C, C++, Java, Python, PHP, Javascript,… đều là các ngôn ngữ từ “thời tiền sử”.<br>Máy tính năm 1995, CPU 75Mhz, RAM 8MB.<br><img src="/images/GoF/Early95spec.jpg" alt="Cấu hình năm 1995"></p>
-<a id="more"></a>
-<p>RAM 8MB còn nhỏ hơn 1 bức ảnh bây giờ. Ảnh chụp bằng Sony A7 nặng 13MB.<br><img src="/images/GoF/DSC3150.JPG" alt="Ảnh chụp bằng Sony A7"></p>
-<p>Các ngôn ngữ cũ được thiết kế trên máy 1 luồng cpu, và không tận dụng được các CPU hiện đại. 1 Luồng chạy hộc máu, 47 cái còn lại ngồi chơi :-?<br><img src="/images/GoF/new.png" alt="CPU 24 nhân,48 luồng"></p>
-<p>Go ra đời nhằm giải quyết vấn đề đó. Một ngôn ngữ được thiết kế để đễ dàng chạy đồng thời trên 48 luồng. Like a boss :))</p>
-<h1 id="Tai-sao-lai-la-web-framework"><a href="#Tai-sao-lai-la-web-framework" class="headerlink" title="Tại sao lại là web framework"></a>Tại sao lại là web framework</h1><p>Đã tập code đẻ học ngôn ngữ mới thì phải code cái gì pro tí. Chả nhẽ suốt ngày Hello world. Trẻ con lớp 2 cũng code được. </p>
-<h1 id="Mo-hinh-framework"><a href="#Mo-hinh-framework" class="headerlink" title="Mô hình framework"></a>Mô hình framework</h1><p>Mình sử dụng mô hình “quốc dân”, khá dễ hiểu: MVC. MVC là viết tắt của Model - View - Controller<br>Mô hình web framework hiện đại có thêm 1 lớp phụ là Router. (chém gió thế chứ mình cũng chả biết framework cổ dại trông ntn)<br>Chức năng cơ bản của các thành phaanf như sau:</p>
-<ul>
-<li>Router: Chuyển yêu cầu truy cập của người dùng đến Controller tương ứng.</li>
-<li>Controller: Thực hiện các chức năng chính của hệ thống, giao tiếp với Model để xử lí dữ liệu:yêu cầu tìm, thêm, sửa, xóa, …</li>
-<li>Model: Thao tác với cơ sở dữ liệu theo yêu cầu của Controller</li>
-<li>View: hiển thị thông tin, dữ liệu cần thiết cho người dùng.</li>
-</ul>
-<p><img src="/images/GoF/mvc.png" alt="MVC"></p>
-<p>Quy trình như sau:</p>
-<ul>
-<li>1.Người dùng gửi yêu cầu</li>
-<li>2.Router chuyển yêu cầu đến Controller thích hợp</li>
-<li>3.Controller làm việc với Model để có dữ liệu cần thiết. Model lấy, ghi dữ liệu từ Database</li>
-<li>4.Controller gọi View để trình bày kết quả.</li>
-<li><p>5.View trình bày kết quả và hiển thị cho người dùng. </p>
-<p>Ý tưởng đại khái là như bao framework khác. [Của mình phải pro hơn chứ :p]</p>
-</li>
-</ul>
+            <h1 id="Tu-mo-hinh-den-thuc-te"><a href="#Tu-mo-hinh-den-thuc-te" class="headerlink" title="Từ mô hình đến thực tế"></a>Từ mô hình đến thực tế</h1><p>Khi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau.<br><img src="/images/GoF/p2-1.png" alt="mô hình"></p>
+<p>Framework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.<br>Cơ ché hot reload này đơn giản lắm.<br>Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).</p>
+<p>Mình sẽ tạo cho framework 1 kênh để nghe những thông báo từ bên ngoài. Nếu trùng với thông báo thiết lập sẵn thì reload lại thiết lập.<br>Framework sẽ có 1 cái sub command là reload, khi chạy nó, nó sẽ báo cho server reload. </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">thanh@thanh-desktop:/media/thanh/p2/Go/Framwork$ ./Go-Framework -h</span><br><span class="line">2019/08/28 23:39:41 Started. PID:20057</span><br><span class="line">Usage of ./Go-Framework: &lt;command&gt;</span><br><span class="line"></span><br><span class="line"> Commands:</span><br><span class="line">  reload <span class="attribute">-pid</span>=&lt;PID&gt;   Request<span class="built_in"> server </span>reload configuration</span><br><span class="line">  help                Display this help <span class="keyword">and</span> exit</span><br><span class="line">  version             Display version information.</span><br></pre></td></tr></table></figure>
+<p><img src="/images/GoF/p2-2.png" alt="mô hình"></p>
+<p>Khi chạy sẽ trông như thế này.<br>Bên trái là server. Bên phải là thằng gọi reload. nemixo đã đổi thành oximen. ;)<br><img src="/images/GoF/p2-3.png" alt="mô hình"></p>
 
             
 
@@ -277,8 +257,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/28/Create-Go-web-framework-p2/" data-tooltip="Create Go web framework p2" aria-label="PREVIOUS: Create Go web framework p2">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -287,7 +266,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/11/Hoc-deep-learning-phan-7/" data-tooltip="Code RNN" aria-label="NEXT: Code RNN">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/26/Create-Go-web-framework-p1/" data-tooltip="Create a Go web framework p1" aria-label="NEXT: Create a Go web framework p1">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -305,7 +284,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -313,7 +292,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -321,7 +300,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -363,8 +342,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/28/Create-Go-web-framework-p2/" data-tooltip="Create Go web framework p2" aria-label="PREVIOUS: Create Go web framework p2">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -373,7 +351,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/11/Hoc-deep-learning-phan-7/" data-tooltip="Code RNN" aria-label="NEXT: Code RNN">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/26/Create-Go-web-framework-p1/" data-tooltip="Create a Go web framework p1" aria-label="NEXT: Create a Go web framework p1">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -391,7 +369,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -399,7 +377,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -407,7 +385,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -434,7 +412,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -442,7 +420,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -450,7 +428,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/26/Create-Go-web-framework-p1/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
                 </a>
             </li>
