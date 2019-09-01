@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Oximen&#39;s blog">
-    <title>Create Go web framework p2 - Oximen&#39;s blog</title>
+    <title>Create a Go web framework p3 - Oximen&#39;s blog</title>
     <meta name="author" content="Nguyen Tien Thanh">
     
         <meta name="keywords" content="javascript,hexo,">
@@ -15,23 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau.\nFramework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.Cơ ché hot reload này đơn giản lắm.Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).Mình sẽ tạo cho framework 1 kênh để nghe những thông báo từ bên ngoài. Nếu trùng với thông báo thiết lập sẵn thì reload lại thiết lập.Framework sẽ có 1 cái sub command là reload, khi chạy nó, nó sẽ báo cho server reload. \n12345678thanh@thanh-desktop:/media/thanh/p2/Go/Framwork$ ./Go-Framework -h2019/08/28 23:39:41 Started. PID:20057Usage of ./Go-Framework: &lt;command&gt; Commands:  reload -pid=&lt;PID&gt;   Request server reload configuration  help                Display this help and exit  version             Display version information.\n\nKhi chạy sẽ trông như thế này.Bên trái là server. Bên phải là thằng gọi reload. nemixo đã đổi thành oximen. ;)\n","dateCreated":"2019-08-28T22:12:01+09:00","dateModified":"2019-09-01T22:46:13+09:00","datePublished":"2019-08-28T22:12:01+09:00","description":"Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau.\nFramework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.Cơ ché hot reload này đơn giản lắm.Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).","headline":"Create Go web framework p2","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/","keywords":"golang, go, framework"}</script>
-    <meta name="description" content="Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau. Framework">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Con nhà người ta code config ntn. mình code config ntn.File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng. \nMình làm đơn giản thôi, dùng json. Tạo 1 cái struct rồi load json vào struct đó. Khi thêm config thì thêm dòng vào struct và json.\nCấu trúc struct\n123456789101112type Config struct &#123;\tDatabase struct &#123;\t\tHost   string\t\tUser   string\t\tPass   string\t\tName   string\t\tDriver string\t&#125;\tApp struct &#123;\t\tEnv string\t&#125;&#125;\nCấu trúc Json123456789101112&#123;  \"database\": &#123;    \"host\":\"127.0.0.1\",    \"user\":\"admin\",    \"pass\":\"12345\",    \"name\":\"oximen\",    \"driver\":\"mysql\"  &#125;,  \"app\": &#123;    \"ENV\":\"dev\"  &#125;&#125;\nThật là đơn giản :p \n","dateCreated":"2019-09-01T22:47:18+09:00","dateModified":"2019-09-01T23:29:13+09:00","datePublished":"2019-09-01T22:47:18+09:00","description":"","headline":"Create a Go web framework p3","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/","keywords":"golang, go, framework"}</script>
+    <meta name="description" content="Con nhà người ta code config ntn. mình code config ntn.File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng.  Mì">
 <meta name="keywords" content="golang,go,framework">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Create Go web framework p2">
-<meta property="og:url" content="http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/index.html">
+<meta property="og:title" content="Create a Go web framework p3">
+<meta property="og:url" content="http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/index.html">
 <meta property="og:site_name" content="Oximen&#39;s blog">
-<meta property="og:description" content="Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau. Framework">
+<meta property="og:description" content="Con nhà người ta code config ntn. mình code config ntn.File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng.  Mì">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/p2-1.png">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/p2-2.png">
-<meta property="og:image" content="http://nemixo.xyz/images/GoF/p2-3.png">
-<meta property="og:updated_time" content="2019-09-01T13:46:13.816Z">
+<meta property="og:updated_time" content="2019-09-01T14:29:13.390Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Create Go web framework p2">
-<meta name="twitter:description" content="Từ mô hình đến thực tếKhi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau. Framework">
-<meta name="twitter:image" content="http://nemixo.xyz/images/GoF/p2-1.png">
+<meta name="twitter:title" content="Create a Go web framework p3">
+<meta name="twitter:description" content="Con nhà người ta code config ntn. mình code config ntn.File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng.  Mì">
     
     
         
@@ -212,14 +208,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Create Go web framework p2
+            Create a Go web framework p3
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2019-08-28T22:12:01+09:00">
+    <time datetime="2019-09-01T22:47:18+09:00">
 	
-		    Aug 28, 2019
+		    Sep 01, 2019
     	
     </time>
     
@@ -231,11 +227,12 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="Tu-mo-hinh-den-thuc-te"><a href="#Tu-mo-hinh-den-thuc-te" class="headerlink" title="Từ mô hình đến thực tế"></a>Từ mô hình đến thực tế</h1><p>Khi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau.<br><img src="/images/GoF/p2-1.png" alt="mô hình"></p>
-<p>Framework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.<br>Cơ ché hot reload này đơn giản lắm.<br>Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).<br><a id="more"></a><br>Mình sẽ tạo cho framework 1 kênh để nghe những thông báo từ bên ngoài. Nếu trùng với thông báo thiết lập sẵn thì reload lại thiết lập.<br>Framework sẽ có 1 cái sub command là reload, khi chạy nó, nó sẽ báo cho server reload. </p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">thanh@thanh-desktop:/media/thanh/p2/Go/Framwork$ ./Go-Framework -h</span><br><span class="line">2019/08/28 23:39:41 Started. PID:20057</span><br><span class="line">Usage of ./Go-Framework: &lt;command&gt;</span><br><span class="line"></span><br><span class="line"> Commands:</span><br><span class="line">  reload <span class="attribute">-pid</span>=&lt;PID&gt;   Request<span class="built_in"> server </span>reload configuration</span><br><span class="line">  help                Display this help <span class="keyword">and</span> exit</span><br><span class="line">  version             Display version information.</span><br></pre></td></tr></table></figure>
-<p><img src="/images/GoF/p2-2.png" alt="mô hình"></p>
-<p>Khi chạy sẽ trông như thế này.<br>Bên trái là server. Bên phải là thằng gọi reload. nemixo đã đổi thành oximen. ;)<br><img src="/images/GoF/p2-3.png" alt="mô hình"></p>
+            <h1 id="Con-nha-nguoi-ta-code-config-ntn-minh-code-config-ntn"><a href="#Con-nha-nguoi-ta-code-config-ntn-minh-code-config-ntn" class="headerlink" title="Con nhà người ta code config ntn. mình code config ntn."></a>Con nhà người ta code config ntn. mình code config ntn.</h1><p>File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng. </p>
+<p>Mình làm đơn giản thôi, dùng json. Tạo 1 cái struct rồi load json vào struct đó. Khi thêm config thì thêm dòng vào struct và json.</p>
+<p>Cấu trúc struct</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type<span class="built_in"> Config </span>struct &#123;</span><br><span class="line">	Database struct &#123;</span><br><span class="line">		Host   string</span><br><span class="line">	<span class="built_in">	User </span>  string</span><br><span class="line">		Pass   string</span><br><span class="line">		Name   string</span><br><span class="line">		Driver string</span><br><span class="line">	&#125;</span><br><span class="line">	App struct &#123;</span><br><span class="line">		Env string</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Cấu trúc Json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"database"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"user"</span>:<span class="string">"admin"</span>,</span><br><span class="line">    <span class="attr">"pass"</span>:<span class="string">"12345"</span>,</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"oximen"</span>,</span><br><span class="line">    <span class="attr">"driver"</span>:<span class="string">"mysql"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"app"</span>: &#123;</span><br><span class="line">    <span class="attr">"ENV"</span>:<span class="string">"dev"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Thật là đơn giản :p </p>
 
             
 
@@ -256,8 +253,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/01/Create-a-Go-web-framework-p3/" data-tooltip="Create a Go web framework p3" aria-label="PREVIOUS: Create a Go web framework p3">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -266,7 +262,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/26/Create-Go-web-framework-p1/" data-tooltip="Create a Go web framework p1" aria-label="NEXT: Create a Go web framework p1">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/28/Create-Go-web-framework-p2/" data-tooltip="Create Go web framework p2" aria-label="NEXT: Create Go web framework p2">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -284,7 +280,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/" title="Share on Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -292,7 +288,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/" title="Share on Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -300,7 +296,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/" title="Share on Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -342,8 +338,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/01/Create-a-Go-web-framework-p3/" data-tooltip="Create a Go web framework p3" aria-label="PREVIOUS: Create a Go web framework p3">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -352,7 +347,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/26/Create-Go-web-framework-p1/" data-tooltip="Create a Go web framework p1" aria-label="NEXT: Create a Go web framework p1">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/08/28/Create-Go-web-framework-p2/" data-tooltip="Create Go web framework p2" aria-label="NEXT: Create Go web framework p2">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -370,7 +365,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/" title="Share on Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -378,7 +373,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/" title="Share on Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -386,7 +381,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/" title="Share on Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -413,7 +408,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -421,7 +416,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -429,7 +424,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/08/28/Create-Go-web-framework-p2/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/01/Create-a-Go-web-framework-p3/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
                 </a>
             </li>

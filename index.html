@@ -209,6 +209,54 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2019/09/01/Create-a-Go-web-framework-p3/">
+                            Create a Go web framework p3
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-09-01T22:47:18+09:00">
+	
+		    Sep 01, 2019
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="Con-nha-nguoi-ta-code-config-ntn-minh-code-config-ntn"><a href="#Con-nha-nguoi-ta-code-config-ntn-minh-code-config-ntn" class="headerlink" title="Con nhà người ta code config ntn. mình code config ntn."></a>Con nhà người ta code config ntn. mình code config ntn.</h1><p>File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng. </p>
+<p>Mình làm đơn giản thôi, dùng json. Tạo 1 cái struct rồi load json vào struct đó. Khi thêm config thì thêm dòng vào struct và json.</p>
+<p>Cấu trúc struct</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type<span class="built_in"> Config </span>struct &#123;</span><br><span class="line">	Database struct &#123;</span><br><span class="line">		Host   string</span><br><span class="line">	<span class="built_in">	User </span>  string</span><br><span class="line">		Pass   string</span><br><span class="line">		Name   string</span><br><span class="line">		Driver string</span><br><span class="line">	&#125;</span><br><span class="line">	App struct &#123;</span><br><span class="line">		Env string</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Cấu trúc Json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"database"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"user"</span>:<span class="string">"admin"</span>,</span><br><span class="line">    <span class="attr">"pass"</span>:<span class="string">"12345"</span>,</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"oximen"</span>,</span><br><span class="line">    <span class="attr">"driver"</span>:<span class="string">"mysql"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"app"</span>: &#123;</span><br><span class="line">    <span class="attr">"ENV"</span>:<span class="string">"dev"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Thật là đơn giản :p </p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/09/01/Create-a-Go-web-framework-p3/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2019/08/28/Create-Go-web-framework-p2/">
                             Create Go web framework p2
                         </a>
@@ -225,24 +273,14 @@
 
             </div>
             
-                <div class="postShorten-content">
+                <div class="postShorten-excerpt">
                     <h1 id="Tu-mo-hinh-den-thuc-te"><a href="#Tu-mo-hinh-den-thuc-te" class="headerlink" title="Từ mô hình đến thực tế"></a>Từ mô hình đến thực tế</h1><p>Khi khởi động sẽ bắt đầu chạy vào main.go. File này sẽ thiết lập các thứ linh tính rồi bắt đầu sang router, controller, view như hình hôm nọ. Mấy cục shit kia tính sau.<br><img src="/images/GoF/p2-1.png" alt="mô hình"></p>
-<p>Framework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.<br>Cơ ché hot reload này đơn giản lắm.<br>Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).</p>
-<p>Mình sẽ tạo cho framework 1 kênh để nghe những thông báo từ bên ngoài. Nếu trùng với thông báo thiết lập sẵn thì reload lại thiết lập.<br>Framework sẽ có 1 cái sub command là reload, khi chạy nó, nó sẽ báo cho server reload. </p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">thanh@thanh-desktop:/media/thanh/p2/Go/Framwork$ ./Go-Framework -h</span><br><span class="line">2019/08/28 23:39:41 Started. PID:20057</span><br><span class="line">Usage of ./Go-Framework: &lt;command&gt;</span><br><span class="line"></span><br><span class="line"> Commands:</span><br><span class="line">  reload <span class="attribute">-pid</span>=&lt;PID&gt;   Request<span class="built_in"> server </span>reload configuration</span><br><span class="line">  help                Display this help <span class="keyword">and</span> exit</span><br><span class="line">  version             Display version information.</span><br></pre></td></tr></table></figure>
-<p><img src="/images/GoF/p2-2.png" alt="mô hình"></p>
-<p>Khi chạy sẽ trông như thế này.<br>Bên trái là server. Bên phải là thằng gọi reload. nemixo đã đổi thành oximen. ;)<br><img src="/images/GoF/p2-3.png" alt="mô hình"></p>
-
+<p>Framework của mình thì phải pro. Mà pro thì phải có hot reload. Không thể như mấy cái webpef… cùi cùi gì đó được. Khi thay đổi thiết lập, chỉ cần chạy lệnh reload cái, thiết lập mới sẽ được load ngay lập tức.<br>Cơ ché hot reload này đơn giản lắm.<br>Cứ coi mỗi chương trình chạy trong máy tính như 1 thằng sinh viên. Sinh viên có mã sinh viên thì chương trình khi chạy cũng có process Id. Nhà trường báo sinh viên nộp đồ án qua mã số sinh viên cũng giống như mình báo cho chương trình load lại thiết lập qua process Id (viết tắt là pid ).<br>
                     
+                        <a href="/2019/08/28/Create-Go-web-framework-p2/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
                         
-
-                    
-                    
-                        <p>
-                            <a href="/2019/08/28/Create-Go-web-framework-p2/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
                     
                 </div>
             
@@ -352,44 +390,6 @@
                     <h4 id="Mang-no-ron-hoi-quy-Recurrent-Neural-Networks"><a href="#Mang-no-ron-hoi-quy-Recurrent-Neural-Networks" class="headerlink" title="Mạng nơ-ron hồi quy (Recurrent Neural Networks)"></a>Mạng nơ-ron hồi quy (Recurrent Neural Networks)</h4><p>Hiện tại, chúng ta đã học đến cái mạng nơ-ron thứ 3, mạng nơ-ron hồi quy. Mạng này được sử dụng để phân tích các chuỗi theo thời gian. Dự đoán thời tiết, phân biệt giọng miền bắc, miền nam,…<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Recurrent_Neural_Networks_RNN_Idea_Behind_Recurrent_Neural_Networks_RNN_Img1.png" alt="anh1"><br>
                     
                         <a href="/2018/10/21/Hoc-deep-learning-phan-6/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/06/Hoc-deep-learning-phan-5/">
-                            Dựng mạng Convolutional Neural Network
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-06T17:59:45+09:00">
-	
-		    Oct 06, 2018
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <h4 id="Dung-mang-Convolutional-Neural-Network"><a href="#Dung-mang-Convolutional-Neural-Network" class="headerlink" title="Dựng mạng Convolutional Neural Network"></a>Dựng mạng Convolutional Neural Network</h4><p>Cái này đơn giản, chả có gì để nói cả.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Convolutional Neural Network</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Theano</span></span><br><span class="line"><span class="comment"># pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Tensorflow</span></span><br><span class="line"><span class="comment"># pip install tensorflow</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Keras</span></span><br><span class="line"><span class="comment"># pip install --upgrade keras</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 1 - Building the CNN</span></span><br></pre></td></tr></table></figure>
-                    
-                        <a href="/2018/10/06/Hoc-deep-learning-phan-5/" class="postShorten-excerpt_link link">
                             Continue reading
                         </a>
                         
