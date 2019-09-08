@@ -210,6 +210,66 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2019/09/05/Create-a-Go-web-framework-p4/">
+                            Create a Go web framework p4
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-09-05T23:52:19+09:00">
+	
+		    Sep 05, 2019
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="Dieu-huong-Lam-cach-nao-de-biet-url-nao-ung-voi-controller-nao"><a href="#Dieu-huong-Lam-cach-nao-de-biet-url-nao-ung-voi-controller-nao" class="headerlink" title="Điều hướng. Làm cách nào để biết url nào ứng với controller nào."></a>Điều hướng. Làm cách nào để biết url nào ứng với controller nào.</h1><p>Điều hướng (routing) là cơ chế dựa vào url, và các thông tin liên quan khác như phuong thức (method), tham số (param), … để chỉ định controller cho truy vấn. (Định nghĩa tự nghĩ ra)</p>
+<p>Nguyên lí khá đơn giản. Xem cái truy vấn đó khớp nhất với quy tắc nào thì dùng controller tương ứng với quy tắc đó. </p>
+<p>Cái điều hướng đơn giản của mình sẽ dựa vào 2 thứ:</p>
+<ul>
+<li>Phuowng thức có khớp ko</li>
+<li>Url có khớp ko.<ul>
+<li>Url khớp chính xác </li>
+<li>Url khớp với regex</li>
+</ul>
+</li>
+</ul>
+<p>Ví dụ:</p>
+<ul>
+<li>GET / sẽ khớp với GET /</li>
+<li>POST /123 sẽ khớp với POST /123</li>
+<li>PUT /id/{id} sẽ khớp với /id/&lt;chuỗi chữ số &gt;</li>
+</ul>
+<p>Từ đó gọi tới controller tương ứng với mỗi truy vấn.</p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/09/05/Create-a-Go-web-framework-p4/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2019/09/01/Create-a-Go-web-framework-p3/">
                             Create a Go web framework p3
                         </a>
