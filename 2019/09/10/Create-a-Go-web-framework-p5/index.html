@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Oximen&#39;s blog">
+    <title>Create a Go web framework p5 - Oximen&#39;s blog</title>
+    <meta name="author" content="Nguyen Tien Thanh">
+    
+        <meta name="keywords" content="javascript,hexo,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?Mô hình chúng ta đang có là ntn.\nHãy tưởng tượng ntn, bạn rất giỏi trong việc nấu cơm bằng nồi cơm điện. Không ai có thể nấu cơm bằng nồi cơm điện ngon hơn bạn. Bạn quyết định cung cấp dịch vụ nấu cơm bằng nồi cơm điện. Bạn đặt hàng thằng Router là cứ ai yêu cầu nấu cái gì đó thì chuyển hết cho bạn, vì chỉ có bạn cung cấp dịch vụ nấu.\nĐời không như là mơ. Khách hàng không chỉ yêu cầu nấu cơm, ngoài các yêu cầu nấu cơm bình thường, thỉnh thoảng lại có các yêu cầu như:\n\nNấu canh đi em ơi.\nNấu cháo có đc ko.\nNấu cơm đừng cho nước nhé.\nNấu cơm bằng bột mỳ đi, đang cần gấp.\nNấu cơm bằng chảo đi, ngon lắm.\n\nVà bạn cũng muốn bỏ qua các yêu cầu vô duyên, vô lý, chả liên quan, muốn ghi nhật ký lại khi xủ lí yêu cầu, … Bạn chỉ muốn nhận các yêu cầu “sạch sẽ” là nấu cơm bằng nồi cơm điện, còn những thứ khác thì cứ để ai đó lo. Và thế là middleware ra đời.\nĐể hiểu tại sao middleware lại ngoằng từ trước controller đến sau View, nó có dạng như hình sau\nApplication chính là dịch vụ nấu cơm của bạn. Do Middleware bao quanh cả application nên:\n\nNếu xử lí trong middle ở phía trước app như: Kiểm tra có phải nấu cơm ko, có dùng nồi cơm điện ko, … gọi là before middleware.\nNếu xử lí trong middleware dienx ra sau app như: Kiểm tra cơm có nát ko, … gọi là after middleware.\nNếu xử lí ở cả trước, sau app như: ghi nhật kí thời gian bắt đầu, kết thúc nấu, .. gọi là gì mình cũng ko biết :p \n\nCách thêm middleware trong framework của mình:\nCode middleware123456789101112131415161718package middlewareimport (\t\"log\"\t\"net/http\"\t\"time\")func LoggingHandler(next http.Handler) http.Handler &#123;\tfn := func(w http.ResponseWriter, r *http.Request) &#123;\t\tt1 := time.Now()\t\t// chạy trước nấu cơm \t\tnext.ServeHTTP(w, r)\t// gọi đến middleware tiếp theo hoặc nấu cơm\t\tt2 := time.Now()\t\t// chạy sau nấu cơm \t\tlog.Printf(\"[%s] %q %v\\n\", r.Method, r.URL.String(), t2.Sub(t1))\t&#125;\treturn http.HandlerFunc(fn)&#125;\nThêm vào Router12commonHandlers := core.Middleware(middleware.LoggingHandler)core.Routes.AddRoute(\"/id/&#123;id&#125;\", \"get\", commonHandlers.ThenFunc(controller.Test.Asd))","dateCreated":"2019-09-10T22:42:52+09:00","dateModified":"2019-09-11T00:37:31+09:00","datePublished":"2019-09-10T22:42:52+09:00","description":"Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?Mô hình chúng ta đang có là ntn.\nHãy tưởng tượng ntn, bạn rất giỏi trong việc nấu cơm bằng nồi cơm điện. Không ai có thể nấu cơm bằng nồi cơm điện ngon hơn bạn. Bạn quyết định cung cấp dịch vụ nấu cơm bằng nồi cơm điện. Bạn đặt hàng thằng Router là cứ ai yêu cầu nấu cái gì đó thì chuyển hết cho bạn, vì chỉ có bạn cung cấp dịch vụ nấu.\nĐời không như là mơ. Khách hàng không chỉ yêu cầu nấu cơm, ngoài các yêu cầu nấu cơm bình thường, thỉnh thoảng lại có các yêu cầu như:","headline":"Create a Go web framework p5","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/","keywords":"golang, go, framework"}</script>
+    <meta name="description" content="Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?Mô hình chúng ta đang có là ntn. Hãy tưởng tượng ntn, bạn rất giỏi trong việc nấu cơm bằ">
+<meta name="keywords" content="golang,go,framework">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Create a Go web framework p5">
+<meta property="og:url" content="http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/index.html">
+<meta property="og:site_name" content="Oximen&#39;s blog">
+<meta property="og:description" content="Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?Mô hình chúng ta đang có là ntn. Hãy tưởng tượng ntn, bạn rất giỏi trong việc nấu cơm bằ">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://nemixo.xyz/images/GoF/mvc.png">
+<meta property="og:image" content="http://nemixo.xyz/images/GoF/mvc2.png">
+<meta property="og:image" content="http://nemixo.xyz/images/GoF/middle.png">
+<meta property="og:updated_time" content="2019-09-10T15:37:31.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create a Go web framework p5">
+<meta name="twitter:description" content="Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?Mô hình chúng ta đang có là ntn. Hãy tưởng tượng ntn, bạn rất giỏi trong việc nấu cơm bằ">
+<meta name="twitter:image" content="http://nemixo.xyz/images/GoF/mvc.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/6302012"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-127727526-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Oximen&#39;s blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture fa fa-question"
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Nguyen Tien Thanh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>(o.O)</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/oximenvn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/OximenVN" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Create a Go web framework p5
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-09-10T22:42:52+09:00">
+	
+		    Sep 10, 2019
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="Middleware-nhan-to-moi-xuat-hien-trong-framework-Middleware-la-cai-gi-Tai-sao-lai-them-vao-day-Them-vao-ntn"><a href="#Middleware-nhan-to-moi-xuat-hien-trong-framework-Middleware-la-cai-gi-Tai-sao-lai-them-vao-day-Them-vao-ntn" class="headerlink" title="Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?"></a>Middleware, nhân tố mới xuất hiện trong framework. Middleware là cái gì? Tại sao lại thêm vào đây? Thêm vào ntn?</h1><p>Mô hình chúng ta đang có là ntn.<br><img src="/images/GoF/mvc.png" alt="MVC"></p>
+<p>Hãy tưởng tượng ntn, bạn rất giỏi trong việc nấu cơm bằng nồi cơm điện. Không ai có thể nấu cơm bằng nồi cơm điện ngon hơn bạn. Bạn quyết định cung cấp dịch vụ nấu cơm bằng nồi cơm điện. Bạn đặt hàng thằng Router là cứ ai yêu cầu nấu cái gì đó thì chuyển hết cho bạn, vì chỉ có bạn cung cấp dịch vụ nấu.</p>
+<p>Đời không như là mơ. Khách hàng không chỉ yêu cầu nấu cơm, ngoài các yêu cầu nấu cơm bình thường, thỉnh thoảng lại có các yêu cầu như:<br><a id="more"></a></p>
+<ul>
+<li>Nấu canh đi em ơi.</li>
+<li>Nấu cháo có đc ko.</li>
+<li>Nấu cơm đừng cho nước nhé.</li>
+<li>Nấu cơm bằng bột mỳ đi, đang cần gấp.</li>
+<li>Nấu cơm bằng chảo đi, ngon lắm.</li>
+</ul>
+<p>Và bạn cũng muốn bỏ qua các yêu cầu vô duyên, vô lý, chả liên quan, muốn ghi nhật ký lại khi xủ lí yêu cầu, … Bạn chỉ muốn nhận các yêu cầu “sạch sẽ” là nấu cơm bằng nồi cơm điện, còn những thứ khác thì cứ để ai đó lo. Và thế là middleware ra đời.<br><img src="/images/GoF/mvc2.png" alt="MVC"></p>
+<p>Để hiểu tại sao middleware lại ngoằng từ trước controller đến sau View, nó có dạng như hình sau<br><img src="/images/GoF/middle.png" alt="Middleaware"></p>
+<p>Application chính là dịch vụ nấu cơm của bạn. Do Middleware bao quanh cả application nên:</p>
+<ul>
+<li>Nếu xử lí trong middle ở phía trước app như: Kiểm tra có phải nấu cơm ko, có dùng nồi cơm điện ko, … gọi là before middleware.</li>
+<li>Nếu xử lí trong middleware dienx ra sau app như: Kiểm tra cơm có nát ko, … gọi là after middleware.</li>
+<li>Nếu xử lí ở cả trước, sau app như: ghi nhật kí thời gian bắt đầu, kết thúc nấu, .. gọi là gì mình cũng ko biết :p </li>
+</ul>
+<p>Cách thêm middleware trong framework của mình:</p>
+<h2 id="Code-middleware"><a href="#Code-middleware" class="headerlink" title="Code middleware"></a>Code middleware</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> middleware</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoggingHandler</span><span class="params">(next http.Handler)</span> <span class="title">http</span>.<span class="title">Handler</span></span> &#123;</span><br><span class="line">	fn := <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">		t1 := time.Now()		<span class="comment">// chạy trước nấu cơm </span></span><br><span class="line">		next.ServeHTTP(w, r)	<span class="comment">// gọi đến middleware tiếp theo hoặc nấu cơm</span></span><br><span class="line">		t2 := time.Now()		<span class="comment">// chạy sau nấu cơm </span></span><br><span class="line">		log.Printf(<span class="string">"[%s] %q %v\n"</span>, r.Method, r.URL.String(), t2.Sub(t1))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> http.HandlerFunc(fn)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Them-vao-Router"><a href="#Them-vao-Router" class="headerlink" title="Thêm vào Router"></a>Thêm vào Router</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">commonHandlers := core.Middleware(middleware.LoggingHandler)</span><br><span class="line">core.Routes.AddRoute(<span class="string">"/id/&#123;id&#125;"</span>, <span class="string">"get"</span>, commonHandlers.ThenFunc(controller.Test.Asd))</span><br></pre></td></tr></table></figure>
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/framework/">framework</a> <a class="tag tag--primary tag--small t-link" href="/tags/go/">go</a> <a class="tag tag--primary tag--small t-link" href="/tags/golang/">golang</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/05/Create-a-Go-web-framework-p4/" data-tooltip="Create a Go web framework p4" aria-label="NEXT: Create a Go web framework p4">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 Nguyen Tien Thanh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/05/Create-a-Go-web-framework-p4/" data-tooltip="Create a Go web framework p4" aria-label="NEXT: Create a Go web framework p4">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/10/Create-a-Go-web-framework-p5/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/6302012" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Nguyen Tien Thanh</h4>
+        
+            <div id="about-card-bio"><p>(o.O)</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Spamer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Kanagawa,Japan
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+
+    </body>
+</html>
