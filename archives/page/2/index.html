@@ -210,6 +210,44 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2019/08/26/Create-Go-web-framework-p1/">
+                            Create a Go web framework p1
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-08-26T23:52:32+09:00">
+	
+		    Aug 26, 2019
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt">
+                    <h1 id="Y-tuong"><a href="#Y-tuong" class="headerlink" title="Ý tưởng"></a>Ý tưởng</h1><p>Sau 1 hồi câu kéo đủ 30 likes, mình quyết định thực hiện ý tưởng: làm 1 cái web framework bằng golang. Mục tiêu đơn giản thôi. Làm 1 cái frame work đơn giản dễ hiểu, có khả năng mở rộng cao, có thể phục vụ hàng tỉ yêu cầu, cho hàng triệu system engineer sử dụng. Framework sẽ sử dụng các nguyên lý, kiến thức cơ bản, dễ hiểu đối với mọi người, để ai cũng có thể hiểu, mở rộng, phát triển framework này. Hơn nữa, framework này sẽ là một mô hình để mọi người có thể hiểu cơ chế hoạt động của các framework hiện đại. </p>
+<h1 id="Tai-sao-lai-la-go"><a href="#Tai-sao-lai-la-go" class="headerlink" title="Tại sao lại là go"></a>Tại sao lại là go</h1><p>Những ngôn ngữ chúng ta hay sử dụng: C, C++, Java, Python, PHP, Javascript,… đều là các ngôn ngữ từ “thời tiền sử”.<br>Máy tính năm 1995, CPU 75Mhz, RAM 8MB.<br><img src="/images/GoF/Early95spec.jpg" alt="Cấu hình năm 1995"></p>
+                    
+                        <a href="/2019/08/26/Create-Go-web-framework-p1/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2018/11/11/Hoc-deep-learning-phan-7/">
                             Code RNN
                         </a>
@@ -353,63 +391,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/08/26/Hoc-deep-learning-p3/">
-                            Tạo mạng nơ-ron đầu tiên.
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-08-26T01:07:12+09:00">
-	
-		    Aug 26, 2018
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <h4 id="Phan-3-Tao-mang-no-ron-dau-tien"><a href="#Phan-3-Tao-mang-no-ron-dau-tien" class="headerlink" title="Phần 3: Tạo mạng nơ-ron đầu tiên."></a>Phần 3: Tạo mạng nơ-ron đầu tiên.</h4><p>Mạng nơ-ron cho mọi người (\^_^). Ai cũng có thể làm được.<br>Từng bước từng bước,  đơn giản dễ hiểu và dĩ nhiên ko có toán ở đây.</p>
-<h2 id="Cai-dat-thu-vien"><a href="#Cai-dat-thu-vien" class="headerlink" title="Cài đặt thư viện"></a>Cài đặt thư viện</h2><p>Cái Spyder ở trong cái Anaconda được cài ở <a href="https://nemixo.xyz/2018/08/18/Hoc-deep-learning-p1/">phần 1</a>.</p>
-<blockquote>
-<p>For Windows and Linux users:<br>In Spyder, go to Tools and Open Anaconda Prompt. Then enter the following commands:</p>
-<ol>
-<li>Create a new environment with Anaconda and Python 3.5:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;conda create -n tensorflow python=3.5 anaconda </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="2">
-<li>Activate the environment:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;activate tensorflow</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="3">
-<li>After this you can install Theano, TensorFlow and Keras:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;conda install theano</span><br><span class="line">&gt;conda install mingw libpython</span><br><span class="line">&gt;pip install tensorflow</span><br><span class="line">&gt;pip install keras</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-                    
-                        <a href="/2018/08/26/Hoc-deep-learning-p3/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -428,7 +409,7 @@
             </a>
           </li>
         
-        <li class="pagination-number">page 2 of 3</li>
+        <li class="pagination-number">page 2 of 4</li>
     </ul>
 </div>
 

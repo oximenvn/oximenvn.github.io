@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Oximen&#39;s blog">
-    <title>Oximen&#39;s blog</title>
+    <title>Tag: framework - Oximen&#39;s blog</title>
     <meta name="author" content="Nguyen Tien Thanh">
     
         <meta name="keywords" content="javascript,hexo,">
@@ -15,12 +15,12 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://nemixo.xyz","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"name":"Oximen's blog","description":"Oximen's personal blog","url":"http://nemixo.xyz","keywords":"javascript, hexo"}</script>
+    <script type="application/ld+json">{}</script>
     <meta name="description" content="Oximen&apos;s personal blog">
 <meta name="keywords" content="javascript,hexo">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Oximen&#39;s blog">
-<meta property="og:url" content="http://nemixo.xyz/page/2/index.html">
+<meta property="og:url" content="http://nemixo.xyz/tags/framework/page/2/index.html">
 <meta property="og:site_name" content="Oximen&#39;s blog">
 <meta property="og:description" content="Oximen&apos;s personal blog">
 <meta property="og:locale" content="en">
@@ -200,7 +200,8 @@
                  class="
                         hasCoverMetaIn
                         ">
-                <section class="postShorten-group main-content-wrap">
+                
+    <section class="postShorten-group main-content-wrap">
     
     
     <article class="postShorten postShorten--thumbnailimg-right">
@@ -240,175 +241,18 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/11/11/Hoc-deep-learning-phan-7/">
-                            Code RNN
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-11-11T17:31:06+09:00">
-	
-		    Nov 11, 2018
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <h4 id="Code-RNN"><a href="#Code-RNN" class="headerlink" title="Code RNN"></a>Code RNN</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Recurrent Neural Network</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 1 - Data Preprocessing</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Importing the libraries</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Importing the training set</span></span><br><span class="line">dataset_train = pd.read_csv(<span class="string">'Google_Stock_Price_Train.csv'</span>)</span><br><span class="line">training_set = dataset_train.iloc[:, <span class="number">1</span>:<span class="number">2</span>].values</span><br><span class="line"></span><br><span class="line"><span class="comment"># Feature Scaling</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">sc = MinMaxScaler(feature_range = (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">training_set_scaled = sc.fit_transform(training_set)</span><br></pre></td></tr></table></figure>
-                    
-                        <a href="/2018/11/11/Hoc-deep-learning-phan-7/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/21/Hoc-deep-learning-phan-6/">
-                            Mạng nơ-ron hồi quy (Recurrent Neural Networks)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-21T09:25:37+09:00">
-	
-		    Oct 21, 2018
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <h4 id="Mang-no-ron-hoi-quy-Recurrent-Neural-Networks"><a href="#Mang-no-ron-hoi-quy-Recurrent-Neural-Networks" class="headerlink" title="Mạng nơ-ron hồi quy (Recurrent Neural Networks)"></a>Mạng nơ-ron hồi quy (Recurrent Neural Networks)</h4><p>Hiện tại, chúng ta đã học đến cái mạng nơ-ron thứ 3, mạng nơ-ron hồi quy. Mạng này được sử dụng để phân tích các chuỗi theo thời gian. Dự đoán thời tiết, phân biệt giọng miền bắc, miền nam,…<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Recurrent_Neural_Networks_RNN_Idea_Behind_Recurrent_Neural_Networks_RNN_Img1.png" alt="anh1"><br>
-                    
-                        <a href="/2018/10/21/Hoc-deep-learning-phan-6/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/06/Hoc-deep-learning-phan-5/">
-                            Dựng mạng Convolutional Neural Network
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-06T17:59:45+09:00">
-	
-		    Oct 06, 2018
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <h4 id="Dung-mang-Convolutional-Neural-Network"><a href="#Dung-mang-Convolutional-Neural-Network" class="headerlink" title="Dựng mạng Convolutional Neural Network"></a>Dựng mạng Convolutional Neural Network</h4><p>Cái này đơn giản, chả có gì để nói cả.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Convolutional Neural Network</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Theano</span></span><br><span class="line"><span class="comment"># pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Tensorflow</span></span><br><span class="line"><span class="comment"># pip install tensorflow</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installing Keras</span></span><br><span class="line"><span class="comment"># pip install --upgrade keras</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Part 1 - Building the CNN</span></span><br></pre></td></tr></table></figure>
-                    
-                        <a href="/2018/10/06/Hoc-deep-learning-phan-5/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/09/16/Hoc-deep-learning-phan-4/">
-                            Mạng nơ-ron tích chập ( Convolutional Neural Network).
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-09-16T17:15:33+09:00">
-	
-		    Sep 16, 2018
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <h4 id="Phan-4-Mang-no-ron-tich-chap-Convolutional-Neural-Network"><a href="#Phan-4-Mang-no-ron-tich-chap-Convolutional-Neural-Network" class="headerlink" title="Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)"></a>Phần 4: Mạng nơ-ron tích chập ( Convolutional Neural Network)</h4><p>Làm cách nào người ta nhận diện được vật trong ảnh. Quá trình sẽ như thế này.<br><img src="https://www.superdatascience.com/wp-content/uploads/2018/08/Convolutional_Neural_Networks_CNN_WhatAre_Img4.png" alt="anh1"><br>Truyền cái ảnh vào mạng nơ-ron tích chập, và nhận nhẫn trả ra. Mạng sẽ trả ra nhãn của vật trong hình. </p>
-<p><img src="/images/ANN/p31.png" alt="anh2"><br>
-                    
-                        <a href="/2018/09/16/Hoc-deep-learning-phan-4/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
           <li class="pagination-prev">
-            <a class="btn btn--default btn--small" href="/">
+            <a class="btn btn--default btn--small" href="/tags/framework/">
               <i class="fa fa-angle-left text-base icon-mr"></i>
               <span>NEWER POSTS</span>
             </a>
           </li>
         
         
-          <li class="pagination-next">
-            <a class="btn btn--default btn--small" href="/page/3/">
-              <span>OLDER POSTS</span>
-              <i class="fa fa-angle-right text-base icon-ml"></i>
-            </a>
-          </li>
-        
-        <li class="pagination-number">page 2 of 4</li>
+        <li class="pagination-number">page 2 of 2</li>
     </ul>
 </div>
 
