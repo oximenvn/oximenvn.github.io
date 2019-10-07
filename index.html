@@ -209,6 +209,52 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2019/10/08/Thanh-toan-khong-tien-mat-cashless/">
+                            Thanh toán không tiền mặt - cashless pay
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-10-08T00:09:25+09:00">
+	
+		    Oct 08, 2019
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="Tim-hieu-ve-cac-hinh-thuc-thanh-toan-khong-dung-tien-mat"><a href="#Tim-hieu-ve-cac-hinh-thuc-thanh-toan-khong-dung-tien-mat" class="headerlink" title="Tìm hiểu về các hình thức thanh toán không dùng tiền mặt"></a>Tìm hiểu về các hình thức thanh toán không dùng tiền mặt</h2><p>Dạo này, tự nhiên thấy mình lạc hậu trong chính lĩnh vực của mình. Trong nước rầm rộ lên thanh toán bằng mã QR. Vài năm trước google, apple đã mở ra google pay, apple pay thanh toán qua NFC. Từ tháng 10 này, Nhật tăng thuế lên 10%, lại giảm giá 2% cho người thanh toán bằng thẻ để kéo mọi người chuyển từ dùng tiền mặt sang thẻ. Mình thì chỉ tiền mặt với debit. Cái gì cũng có nguyên nhân của nó :v  </p>
+<p><strong>Bắt đầu nào!</strong> Mình sẽ cố gắng vẽ lên mô hình tổng quan của hệ thống thánh toán hiện nay. Phần cũ là gì, phần ko dùng tiền mặt là gì, chúng dựa trên cái gì và tự nhận xét độ an toàn.</p>
+<h3 id="Thoi-tien-su"><a href="#Thoi-tien-su" class="headerlink" title="Thời tiền sử"></a>Thời tiền sử</h3><p>Lướt qua tí về thời kì đồ đá. Thời này họ đổi hàng lấy hàng. Đổi chân gà lấy lông gà. Đổi trứng lấy muỗi. Đổi rìu lấy lợn gà. Thanh toán không tiền mặt là đây chứ đâu !!!! Done :v :v :v </p>
+<p>Đi ngủ, hôm nào viết tiếp…. </p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/10/08/Thanh-toan-khong-tien-mat-cashless/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2019/09/16/Create-a-Go-web-framework-p7/">
                             Create a Go web framework p7
                         </a>
@@ -370,54 +416,6 @@
                     
                         <p>
                             <a href="/2019/09/05/Create-a-Go-web-framework-p4/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/09/01/Create-a-Go-web-framework-p3/">
-                            Create a Go web framework p3
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-09-01T22:47:18+09:00">
-	
-		    Sep 01, 2019
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h1 id="Con-nha-nguoi-ta-code-config-ntn-minh-code-config-ntn"><a href="#Con-nha-nguoi-ta-code-config-ntn-minh-code-config-ntn" class="headerlink" title="Con nhà người ta code config ntn. mình code config ntn."></a>Con nhà người ta code config ntn. mình code config ntn.</h1><p>File config mỗi thằng code 1 kiểu. Apache dùng file text theo dạng tự quy định. Laravel dùng mảng nhiều chiều, thêm config thì điền vào mảng. </p>
-<p>Mình làm đơn giản thôi, dùng json. Tạo 1 cái struct rồi load json vào struct đó. Khi thêm config thì thêm dòng vào struct và json.</p>
-<p>Cấu trúc struct</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type<span class="built_in"> Config </span>struct &#123;</span><br><span class="line">	Database struct &#123;</span><br><span class="line">		Host   string</span><br><span class="line">	<span class="built_in">	User </span>  string</span><br><span class="line">		Pass   string</span><br><span class="line">		Name   string</span><br><span class="line">		Driver string</span><br><span class="line">	&#125;</span><br><span class="line">	App struct &#123;</span><br><span class="line">		Env string</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Cấu trúc Json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"database"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"user"</span>:<span class="string">"admin"</span>,</span><br><span class="line">    <span class="attr">"pass"</span>:<span class="string">"12345"</span>,</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"oximen"</span>,</span><br><span class="line">    <span class="attr">"driver"</span>:<span class="string">"mysql"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"app"</span>: &#123;</span><br><span class="line">    <span class="attr">"ENV"</span>:<span class="string">"dev"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Thật là đơn giản :p </p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/09/01/Create-a-Go-web-framework-p3/#post-footer" class="postShorten-excerpt_link link">
                                 Comment and share
                             </a>
                         </p>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Oximen&#39;s blog">
-    <title>Create a Go web framework p7 - Oximen&#39;s blog</title>
+    <title>Thanh toán không tiền mặt - cashless pay - Oximen&#39;s blog</title>
     <meta name="author" content="Nguyen Tien Thanh">
     
         <meta name="keywords" content="javascript,hexo,">
@@ -15,19 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Database (Cơ sở dữ liệu) là cái gì? Tại sao Model lại dùng Database?  Phần 2","dateCreated":"2019-09-16T23:19:24+09:00","dateModified":"2019-09-16T23:20:09+09:00","datePublished":"2019-09-16T23:19:24+09:00","description":"","headline":"Create a Go web framework p7","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/","keywords":"golang, go, framework"}</script>
-    <meta name="description" content="Database (Cơ sở dữ liệu) là cái gì? Tại sao Model lại dùng Database?  Phần 2">
-<meta name="keywords" content="golang,go,framework">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012"},"articleBody":"Tìm hiểu về các hình thức thanh toán không dùng tiền mặtDạo này, tự nhiên thấy mình lạc hậu trong chính lĩnh vực của mình. Trong nước rầm rộ lên thanh toán bằng mã QR. Vài năm trước google, apple đã mở ra google pay, apple pay thanh toán qua NFC. Từ tháng 10 này, Nhật tăng thuế lên 10%, lại giảm giá 2% cho người thanh toán bằng thẻ để kéo mọi người chuyển từ dùng tiền mặt sang thẻ. Mình thì chỉ tiền mặt với debit. Cái gì cũng có nguyên nhân của nó :v  \nBắt đầu nào! Mình sẽ cố gắng vẽ lên mô hình tổng quan của hệ thống thánh toán hiện nay. Phần cũ là gì, phần ko dùng tiền mặt là gì, chúng dựa trên cái gì và tự nhận xét độ an toàn.\nThời tiền sửLướt qua tí về thời kì đồ đá. Thời này họ đổi hàng lấy hàng. Đổi chân gà lấy lông gà. Đổi trứng lấy muỗi. Đổi rìu lấy lợn gà. Thanh toán không tiền mặt là đây chứ đâu !!!! Done :v :v :v \nĐi ngủ, hôm nào viết tiếp…. \n","dateCreated":"2019-10-08T00:09:25+09:00","dateModified":"2019-10-08T00:57:53+09:00","datePublished":"2019-10-08T00:09:25+09:00","description":"","headline":"Thanh toán không tiền mặt - cashless pay","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/"},"publisher":{"@type":"Organization","name":"Nguyen Tien Thanh","sameAs":[],"image":"https://avatars1.githubusercontent.com/u/6302012","logo":{"@type":"ImageObject","url":"https://avatars1.githubusercontent.com/u/6302012"}},"url":"http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/","keywords":"money, cashless, pay, financial"}</script>
+    <meta name="description" content="Tìm hiểu về các hình thức thanh toán không dùng tiền mặtDạo này, tự nhiên thấy mình lạc hậu trong chính lĩnh vực của mình. Trong nước rầm rộ lên thanh toán bằng mã QR. Vài năm trước google, apple đã m">
+<meta name="keywords" content="money,cashless,pay,financial">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Create a Go web framework p7">
-<meta property="og:url" content="http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/index.html">
+<meta property="og:title" content="Thanh toán không tiền mặt - cashless pay">
+<meta property="og:url" content="http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/index.html">
 <meta property="og:site_name" content="Oximen&#39;s blog">
-<meta property="og:description" content="Database (Cơ sở dữ liệu) là cái gì? Tại sao Model lại dùng Database?  Phần 2">
+<meta property="og:description" content="Tìm hiểu về các hình thức thanh toán không dùng tiền mặtDạo này, tự nhiên thấy mình lạc hậu trong chính lĩnh vực của mình. Trong nước rầm rộ lên thanh toán bằng mã QR. Vài năm trước google, apple đã m">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-16T14:20:09.504Z">
+<meta property="og:updated_time" content="2019-10-07T15:57:53.621Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Create a Go web framework p7">
-<meta name="twitter:description" content="Database (Cơ sở dữ liệu) là cái gì? Tại sao Model lại dùng Database?  Phần 2">
+<meta name="twitter:title" content="Thanh toán không tiền mặt - cashless pay">
+<meta name="twitter:description" content="Tìm hiểu về các hình thức thanh toán không dùng tiền mặtDạo này, tự nhiên thấy mình lạc hậu trong chính lĩnh vực của mình. Trong nước rầm rộ lên thanh toán bằng mã QR. Vài năm trước google, apple đã m">
     
     
         
@@ -208,14 +208,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Create a Go web framework p7
+            Thanh toán không tiền mặt - cashless pay
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2019-09-16T23:19:24+09:00">
+    <time datetime="2019-10-08T00:09:25+09:00">
 	
-		    Sep 16, 2019
+		    Oct 08, 2019
     	
     </time>
     
@@ -227,7 +227,11 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="Database-Co-so-du-lieu-la-cai-gi-Tai-sao-Model-lai-dung-Database-Phan-2"><a href="#Database-Co-so-du-lieu-la-cai-gi-Tai-sao-Model-lai-dung-Database-Phan-2" class="headerlink" title="Database (Cơ sở dữ liệu) là cái gì? Tại sao Model lại dùng Database?  Phần 2"></a>Database (Cơ sở dữ liệu) là cái gì? Tại sao Model lại dùng Database?  Phần 2</h1>
+            <h2 id="Tim-hieu-ve-cac-hinh-thuc-thanh-toan-khong-dung-tien-mat"><a href="#Tim-hieu-ve-cac-hinh-thuc-thanh-toan-khong-dung-tien-mat" class="headerlink" title="Tìm hiểu về các hình thức thanh toán không dùng tiền mặt"></a>Tìm hiểu về các hình thức thanh toán không dùng tiền mặt</h2><p>Dạo này, tự nhiên thấy mình lạc hậu trong chính lĩnh vực của mình. Trong nước rầm rộ lên thanh toán bằng mã QR. Vài năm trước google, apple đã mở ra google pay, apple pay thanh toán qua NFC. Từ tháng 10 này, Nhật tăng thuế lên 10%, lại giảm giá 2% cho người thanh toán bằng thẻ để kéo mọi người chuyển từ dùng tiền mặt sang thẻ. Mình thì chỉ tiền mặt với debit. Cái gì cũng có nguyên nhân của nó :v  </p>
+<p><strong>Bắt đầu nào!</strong> Mình sẽ cố gắng vẽ lên mô hình tổng quan của hệ thống thánh toán hiện nay. Phần cũ là gì, phần ko dùng tiền mặt là gì, chúng dựa trên cái gì và tự nhận xét độ an toàn.</p>
+<h3 id="Thoi-tien-su"><a href="#Thoi-tien-su" class="headerlink" title="Thời tiền sử"></a>Thời tiền sử</h3><p>Lướt qua tí về thời kì đồ đá. Thời này họ đổi hàng lấy hàng. Đổi chân gà lấy lông gà. Đổi trứng lấy muỗi. Đổi rìu lấy lợn gà. Thanh toán không tiền mặt là đây chứ đâu !!!! Done :v :v :v </p>
+<p>Đi ngủ, hôm nào viết tiếp…. </p>
+
             
 
         </div>
@@ -237,7 +241,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/framework/">framework</a> <a class="tag tag--primary tag--small t-link" href="/tags/go/">go</a> <a class="tag tag--primary tag--small t-link" href="/tags/golang/">golang</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/cashless/">cashless</a> <a class="tag tag--primary tag--small t-link" href="/tags/financial/">financial</a> <a class="tag tag--primary tag--small t-link" href="/tags/money/">money</a> <a class="tag tag--primary tag--small t-link" href="/tags/pay/">pay</a>
 
             </div>
         
@@ -247,8 +251,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" data-tooltip="Thanh toán không tiền mặt - cashless pay" aria-label="PREVIOUS: Thanh toán không tiền mặt - cashless pay">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -257,7 +260,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/16/Create-a-Go-web-framework-p6/" data-tooltip="Create a Go web framework p6" aria-label="NEXT: Create a Go web framework p6">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/16/Create-a-Go-web-framework-p7/" data-tooltip="Create a Go web framework p7" aria-label="NEXT: Create a Go web framework p7">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -275,7 +278,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" title="Share on Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -283,7 +286,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" title="Share on Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -291,7 +294,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" title="Share on Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -333,8 +336,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" data-tooltip="Thanh toán không tiền mặt - cashless pay" aria-label="PREVIOUS: Thanh toán không tiền mặt - cashless pay">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -343,7 +345,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/16/Create-a-Go-web-framework-p6/" data-tooltip="Create a Go web framework p6" aria-label="NEXT: Create a Go web framework p6">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/16/Create-a-Go-web-framework-p7/" data-tooltip="Create a Go web framework p7" aria-label="NEXT: Create a Go web framework p7">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -361,7 +363,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" title="Share on Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -369,7 +371,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" title="Share on Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -377,7 +379,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/" title="Share on Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -404,7 +406,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -412,7 +414,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -420,7 +422,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/09/16/Create-a-Go-web-framework-p7/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://nemixo.xyz/2019/10/08/Thanh-toan-khong-tien-mat-cashless/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
                 </a>
             </li>
